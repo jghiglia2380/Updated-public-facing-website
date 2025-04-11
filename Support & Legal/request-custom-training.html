@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PFL Academy - Custom Training Request Form</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 8.5in;
+      margin: 0 auto;
+      padding: 0.5in;
+    }
+    
+    .header {
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid #4F46E5;
+      padding-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-weight: 700;
+      font-size: 24px;
+      color: #4F46E5;
+    }
+    
+    h1 {
+      color: #4F46E5;
+      font-size: 28px;
+      margin-bottom: 1.5rem;
+    }
+    
+    h2 {
+      color: #4338CA;
+      font-size: 20px;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #E5E7EB;
+      padding-bottom: 0.5rem;
+    }
+    
+    h3 {
+      color: #6366F1;
+      font-size: 16px;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .section {
+      margin-bottom: 2rem;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #D1D5DB;
+      border-radius: 4px;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .input-group {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .input-group > div {
+      flex: 1;
+    }
+    
+    .checkbox-group {
+      margin-top: 0.5rem;
+    }
+    
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    
+    input[type="checkbox"] {
+      margin-right: 0.5rem;
+    }
+    
+    .callout {
+      background-color: #EFF6FF;
+      border-left: 4px solid #3B82F6;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 4px;
+    }
+    
+    .signature-box {
+      border: 1px dashed #D1D5DB;
+      padding: 1rem;
+      margin-top: 0.5rem;
+      height: 5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #9CA3AF;
+      font-style: italic;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+    
+    table, th, td {
+      border: 1px solid #E5E7EB;
+    }
+    
+    th {
+      background-color: #F3F4F6;
+      padding: 0.75rem;
+      text-align: left;
+      font-weight: 600;
+    }
+    
+    td {
+      padding: 0.75rem;
+    }
+    
+    footer {
+      margin-top: 3rem;
+      padding-top: 1rem;
+      border-top: 2px solid #4F46E5;
+      font-size: 12px;
+      color: #6B7280;
+      text-align: center;
+    }
+    
+    .radio-group {
+      margin-top: 0.5rem;
+    }
+    
+    .radio-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    
+    input[type="radio"] {
+      margin-right: 0.5rem;
+    }
+    
+    @media print {
+      body {
+        padding: 0;
+      }
+      
+      .page-break {
+        page-break-after: always;
+      }
+      
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      input[type="date"],
+      select,
+      textarea {
+        border: 1px solid #D1D5DB;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">PFL Academy</div>
+    <div>Custom Training Request Form</div>
+  </div>
+  
+  <div class="section">
+    <h1>Custom Training Request Form</h1>
+    <p>Complete this form to request custom training for your school or district. Our team will follow up within 48 hours to confirm your request and provide more information.</p>
+    
+    <div class="callout">
+      <strong>Note:</strong> For immediate assistance, please contact our support team at <a href="mailto:support@pflacademy.co">support@pflacademy.co</a>.
+    </div>
+  </div>
+  
+  <div class="section">
+    <h2>1. Contact Information</h2>
+    
+    <div class="form-group">
+      <div class="input-group">
+        <div>
+          <label for="firstName">First Name*</label>
+          <input type="text" id="firstName" name="firstName">
+        </div>
+        <div>
+          <label for="lastName">Last Name*</label>
+          <input type="text" id="lastName" name="lastName">
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <div class="input-group">
+        <div>
+          <label for="email">Email Address*</label>
+          <input type="email" id="email" name="email">
+        </div>
+        <div>
+          <label for="phone">Phone Number*</label>
+          <input type="tel" id="phone" name="phone">
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="role">Role/Position*</label>
+      <input type="text" id="role" name="role">
+    </div>
+  </div>
+  
+  <div class="section">
+    <h2>2. School/District Information</h2>
+    
+    <div class="form-group">
+      <label for="schoolName">School/District Name*</label>
+      <input type="text" id="schoolName" name="schoolName">
+    </div>
+    
+    <div class="form-group">
+      <div class="input-group">
+        <div>
+          <label for="address">Address*</label>
+          <input type="text" id="address" name="address">
+        </div>
+        <div>
+          <label for="city">City*</label>
+          <input type="text" id="city" name="city">
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <div class="input-group">
+        <div>
+          <label for="state">State*</label>
+          <input type="text" id="state" name="state">
+        </div>
+        <div>
+          <label for="zipCode">ZIP Code*</label>
+          <input type="text" id="zipCode" name="zipCode">
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="districtSize">Approximate Number of Students*</label>
+      <select id="districtSize" name="districtSize">
+        <option value="">Please select</option>
+        <option value="<500">Less than 500</option>
+        <option value="500-1000">500 - 1,000</option>
+        <option value="1001-5000">1,001 - 5,000</option>
+        <option value="5001-10000">5,001 - 10,000</option>
+        <option value=">10000">More than 10,000</option>
+      </select>
+    </div>
+  </div>
+  
+  <div class="section">
+    <h2>3. Training Request Details</h2>
+    
+    <div class="form-group">
+      <label>Type of Training Requested*</label>
+      <div class="checkbox-group">
+        <div class="checkbox-item">
+          <input type="checkbox" id="platformOverview" name="trainingType" value="platformOverview">
+          <label for="platformOverview">Platform Overview</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="curriculumTraining" name="trainingType" value="curriculumTraining">
+          <label for="curriculumTraining">Curriculum Training</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="adminTraining" name="trainingType" value="adminTraining">
+          <label for="adminTraining">Administrator Training</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="assessmentTraining" name="trainingType" value="assessmentTraining">
+          <label for="assessmentTraining">Assessment Tools Training</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="customContent" name="trainingType" value="customContent">
+          <label for="customContent">Custom Content Development</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="other" name="trainingType" value="other">
+          <label for="other">Other (Please specify below)</label>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="trainingDetails">Please provide more details about your training needs:</label>
+      <textarea id="trainingDetails" name="trainingDetails" rows="5"></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label>Preferred Training Format*</label>
+      <div class="radio-group">
+        <div class="radio-item">
+          <input type="radio" id="virtual" name="trainingFormat" value="virtual">
+          <label for="virtual">Virtual (Zoom/Teams)</label>
+        </div>
+        <div class="radio-item">
+          <input type="radio" id="inPerson" name="trainingFormat" value="inPerson">
+          <label for="inPerson">In-Person</label>
+        </div>
+        <div class="radio-item">
+          <input type="radio" id="hybrid" name="trainingFormat" value="hybrid">
+          <label for="hybrid">Hybrid (Both virtual and in-person components)</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="page-break"></div>
+  
+  <div class="section">
+    <h2>4. Schedule Preferences</h2>
+    
+    <div class="form-group">
+      <label for="preferredStartDate">Preferred Start Date*</label>
+      <input type="date" id="preferredStartDate" name="preferredStartDate">
+    </div>
+    
+    <div class="form-group">
+      <label for="alternateDate">Alternate Date</label>
+      <input type="date" id="alternateDate" name="alternateDate">
+    </div>
+    
+    <div class="form-group">
+      <label>Preferred Time of Day*</label>
+      <div class="checkbox-group">
+        <div class="checkbox-item">
+          <input type="checkbox" id="morning" name="timeOfDay" value="morning">
+          <label for="morning">Morning (8am - 12pm)</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="afternoon" name="timeOfDay" value="afternoon">
+          <label for="afternoon">Afternoon (12pm - 4pm)</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="evening" name="timeOfDay" value="evening">
+          <label for="evening">Evening (4pm - 8pm)</label>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="duration">Expected Duration/Time Available*</label>
+      <select id="duration" name="duration">
+        <option value="">Please select</option>
+        <option value="1-2">1-2 hours</option>
+        <option value="3-4">3-4 hours</option>
+        <option value="half-day">Half-day (4 hours)</option>
+        <option value="full-day">Full-day (7-8 hours)</option>
+        <option value="multi-day">Multi-day session</option>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label for="attendees">Approximate Number of Attendees*</label>
+      <input type="text" id="attendees" name="attendees">
+    </div>
+  </div>
+  
+  <div class="section">
+    <h2>5. Additional Information</h2>
+    
+    <div class="form-group">
+      <label>Have you used PFL Academy before?*</label>
+      <div class="radio-group">
+        <div class="radio-item">
+          <input type="radio" id="experienceYes" name="priorExperience" value="yes">
+          <label for="experienceYes">Yes</label>
+        </div>
+        <div class="radio-item">
+          <input type="radio" id="experienceNo" name="priorExperience" value="no">
+          <label for="experienceNo">No</label>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label>How did you hear about PFL Academy?</label>
+      <select id="referralSource" name="referralSource">
+        <option value="">Please select</option>
+        <option value="colleague">Colleague recommendation</option>
+        <option value="conference">Conference/Event</option>
+        <option value="email">Email</option>
+        <option value="social">Social media</option>
+        <option value="search">Web search</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label for="additionalInfo">Any additional information or special requests?</label>
+      <textarea id="additionalInfo" name="additionalInfo" rows="5"></textarea>
+    </div>
+  </div>
+  
+  <div class="section">
+    <h2>6. Authorization</h2>
+    
+    <div class="form-group">
+      <div class="checkbox-item">
+        <input type="checkbox" id="authorization" name="authorization" value="authorized">
+        <label for="authorization">I am authorized to request training on behalf of my school/district and understand that submission of this form does not guarantee training on the requested dates.*</label>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="signature">Signature*</label>
+      <div class="signature-box">Sign here</div>
+    </div>
+    
+    <div class="form-group">
+      <div class="input-group">
+        <div>
+          <label for="signatureDate">Date*</label>
+          <input type="date" id="signatureDate" name="signatureDate">
+        </div>
+        <div>
+          <label for="printedName">Printed Name*</label>
+          <input type="text" id="printedName" name="printedName">
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="callout">
+    <p><strong>What happens next?</strong> After submitting this form, a member of our training team will contact you within 48 hours to confirm your request and provide additional details.</p>
+  </div>
+  
+  <footer>
+    <p>© 2025 PFL Academy. All rights reserved.</p>
+    <p>Please submit this form via email to <a href="mailto:training@pflacademy.co">training@pflacademy.co</a>.</p>
+  </footer>
+</body>
+</html>

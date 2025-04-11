@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PFL Academy - Teacher Slide Deck</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      background-color: #f9fafb;
+    }
+    
+    .slide {
+      width: 1280px;
+      height: 720px;
+      margin: 2rem auto;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      background-color: white;
+      position: relative;
+      overflow: hidden;
+      page-break-after: always;
+    }
+    
+    .slide-content {
+      padding: 3rem;
+      height: calc(100% - 6rem);
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .slide-header {
+      margin-bottom: 2rem;
+    }
+    
+    .slide-footer {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #6B7280;
+    }
+    
+    .title-slide {
+      background: linear-gradient(135deg, #4F46E5, #7C3AED);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .title-slide h1 {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+    
+    .title-slide h2 {
+      font-size: 2rem;
+      font-weight: 400;
+      margin-bottom: 3rem;
+    }
+    
+    .title-slide .logo {
+      position: absolute;
+      top: 3rem;
+      left: 3rem;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+    
+    .title-slide .date {
+      position: absolute;
+      bottom: 3rem;
+      font-size: 1.2rem;
+    }
+    
+    .content-slide h2 {
+      color: #4F46E5;
+      font-size: 2.5rem;
+      margin-top: 0;
+      margin-bottom: 2rem;
+    }
+    
+    .two-column {
+      display: flex;
+      gap: 3rem;
+      height: 100%;
+    }
+    
+    .two-column > div {
+      flex: 1;
+    }
+    
+    .text-large {
+      font-size: 1.5rem;
+    }
+    
+    .list-slide ul, .list-slide ol {
+      font-size: 1.5rem;
+      margin: 0;
+      padding-left: 1.5rem;
+    }
+    
+    .list-slide li {
+      margin-bottom: 1.5rem;
+    }
+    
+    .highlight-box {
+      background-color: #EFF6FF;
+      border-left: 6px solid #3B82F6;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 1.5rem 0;
+    }
+    
+    .stats-slide .stats-container {
+      display: flex;
+      justify-content: space-around;
+      text-align: center;
+      margin: 3rem 0;
+    }
+    
+    .stats-slide .stat {
+      flex: 1;
+    }
+    
+    .stats-slide .stat-number {
+      font-size: 4rem;
+      font-weight: 700;
+      color: #4F46E5;
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+    
+    .stats-slide .stat-label {
+      font-size: 1.5rem;
+      color: #6B7280;
+    }
+    
+    .quote-slide {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 3rem 6rem;
+    }
+    
+    .quote-slide blockquote {
+      font-size: 2rem;
+      font-style: italic;
+      color: #4F46E5;
+      margin: 0 0 2rem 0;
+    }
+    
+    .quote-slide .attribution {
+      font-size: 1.25rem;
+      font-weight: 500;
+    }
+    
+    .contact-slide {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .contact-slide h2 {
+      margin-bottom: 3rem;
+    }
+    
+    .contact-slide .contact-info {
+      font-size: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    
+    .gradient-bg {
+      background: linear-gradient(135deg, #4F46E5, #7C3AED);
+      color: white;
+    }
+    
+    .gradient-bg h2 {
+      color: white;
+    }
+    
+    @media print {
+      body {
+        background-color: white;
+      }
+      
+      .slide {
+        box-shadow: none;
+        margin: 0;
+        page-break-after: always;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Title Slide -->
+  <div class="slide title-slide">
+    <div class="logo">PFL Academy</div>
+    <h1>Personal Financial Literacy</h1>
+    <h2>Empowering Students for Financial Success</h2>
+    <div class="date">2025</div>
+  </div>
+  
+  <!-- Introduction Slide -->
+  <div class="slide content-slide">
+    <div class="slide-content">
+      <div class="slide-header">
+        <h2>About PFL Academy</h2>
+      </div>
+      
+      <p class="text-large">PFL Academy is a comprehensive financial literacy education platform designed to equip students with the knowledge, skills, and confidence to make informed financial decisions.</p>
+      
+      <div class="highlight-box">
+        <p class="text-large">Our curriculum aligns with all 15 standards recommended by the Council for Economic Education and the Jump$tart Coalition for Personal Financial Literacy.</p>
+      </div>
+      
+      <p class="text-large">Through our innovative two-day learning model, students build both theoretical knowledge and practical skills they can apply immediately in their own lives.</p>
+      
+      <div class="slide-footer">
+        <div>PFL Academy</div>
+        <div>2025</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Key Features Slide -->
+  <div class="slide list-slide">
+    <div class="slide-content">
+      <div class="slide-header">
+        <h2>Key Platform Features</h2>
+      </div>
+      
+      <ul>
+        <li><strong>Comprehensive Curriculum</strong> - 15 standards with multiple chapters covering all aspects of financial literacy</li>
+        <li><strong>Two-Day Learning Model</strong> - Content exploration followed by hands-on learning labs</li>
+        <li><strong>Interactive Skill Builders</strong> - Real-world applications and simulations</li>
+        <li><strong>Detailed Teacher Guides</strong> - Complete lesson plans with facilitation notes</li>
+        <li><strong>Progress Tracking</strong> - Monitor student engagement and understanding</li>
+        <li><strong>Assessment Tools</strong> - Pre-built quizzes and projects with automated grading</li>
+      </ul>
+      
+      <div class="slide-footer">
+        <div>PFL Academy</div>
+        <div>2025</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Two-Day Model Slide -->
+  <div class="slide content-slide">
+    <div class="slide-content">
+      <div class="slide-header">
+        <h2>Two-Day Learning Model</h2>
+      </div>
+      
+      <div class="two-column">
+        <div>
+          <h3 style="font-size: 1.75rem; color: #4F46E5;">Day 1: Content Exploration</h3>
+          <ul style="font-size: 1.25rem;">
+            <li>Core concept introduction</li>
+            <li>Key vocabulary and principles</li>
+            <li>Real-world examples and case studies</li>
+            <li>Discussion prompts and reflection</li>
+            <li>Initial skill builder introduction</li>
+          </ul>
+          <div style="text-align: center; margin-top: 2rem;">
+            <div style="font-size: 1.25rem; color: #4F46E5; font-weight: 600;">55 minutes</div>
+            <div style="font-size: 1rem; color: #6B7280;">Structured classroom time</div>
+          </div>
+        </div>
+        
+        <div>
+          <h3 style="font-size: 1.75rem; color: #7C3AED;">Day 2: Learning Lab</h3>
+          <ul style="font-size: 1.25rem;">
+            <li>Hands-on application stations</li>
+            <li>Interactive skill builders</li>
+            <li>Problem-solving activities</li>
+            <li>Portfolio building exercises</li>
+            <li>Real-world decision-making practice</li>
+          </ul>
+          <div style="text-align: center; margin-top: 2rem;">
+            <div style="font-size: 1.25rem; color: #7C3AED; font-weight: 600;">Flexible timing</div>
+            <div style="font-size: 1rem; color: #6B7280;">Adaptable to your schedule</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="slide-footer">
+        <div>PFL Academy</div>
+        <div>2025</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Standards Slide -->
+  <div class="slide content-slide">
+    <div class="slide-content">
+      <div class="slide-header">
+        <h2>Curriculum Standards</h2>
+      </div>
+      
+      <div class="two-column">
+        <div>
+          <ul style="font-size: 1.25rem;">
+            <li><strong>Standard 1:</strong> Income & Careers</li>
+            <li><strong>Standard 2:</strong> Taxes</li>
+            <li><strong>Standard 3:</strong> Financial Services</li>
+            <li><strong>Standard 4:</strong> Banking Tools</li>
+            <li><strong>Standard 5:</strong> Saving & Investing</li>
+            <li><strong>Standard 6:</strong> Retirement Planning</li>
+            <li><strong>Standard 7:</strong> Borrowing</li>
+            <li><strong>Standard 8:</strong> Credit & Debit Cards</li>
+          </ul>
+        </div>
+        
+        <div>
+          <ul style="font-size: 1.25rem;">
+            <li><strong>Standard 9:</strong> Consumer Protection</li>
+            <li><strong>Standard 10:</strong> Housing Decisions</li>
+            <li><strong>Standard 11:</strong> Risk Management</li>
+            <li><strong>Standard 12:</strong> Gambling</li>
+            <li><strong>Standard 13:</strong> Debt Management</li>
+            <li><strong>Standard 14:</strong> Charitable Giving</li>
+            <li><strong>Standard 15:</strong> Career Readiness</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="highlight-box" style="margin-top: 1rem;">
+        <p style="font-size: 1.25rem; text-align: center;">Each standard contains multiple chapters with both Day 1 and Day 2 content</p>
+      </div>
+      
+      <div class="slide-footer">
+        <div>PFL Academy</div>
+        <div>2025</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Impact Stats Slide -->
+  <div class="slide stats-slide">
+    <div class="slide-content">
+      <div class="slide-header">
+        <h2>Why Financial Literacy Matters</h2>
+      </div>
+      
+      <div class="stats-container">
+        <div class="stat">
+          <div class="stat-number">78%</div>
+          <div class="stat-label">of Americans live<br>paycheck to paycheck</div>
+        </div>
+        
+        <div class="stat">
+          <div class="stat-number">42%</div>
+          <div class="stat-label">have less than $1,000<br>in savings</div>
+        </div>
+        
+        <div class="stat">
+          <div class="stat-number">87%</div>
+          <div class="stat-label">of teens lack basic<br>financial knowledge</div>
+        </div>
+      </div>
+      
+      <p class="text-large" style="text-align: center; margin-top: 2rem;">Financial literacy education changes these statistics.</p>
+      
+      <div class="highlight-box">
+        <p class="text-large" style="text-align: center; margin: 0;">Students with financial education are 3x more likely to save money and 2x more likely to invest for the future.</p>
+      </div>
+      
+      <div class="slide-footer">
+        <div>PFL Academy</div>
+        <div>2025</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Interactive Demo Slide -->
+  <div class="slide gradient-bg">
+    <div class="slide-content">
+      <div class="slide-header">
+        <h2>Interactive Skill Builders</h2>
+      </div>
+      
+      <div class="two-column">
+        <div>
+          <ul style="font-size: 1.25rem; color: white;">
+            <li><strong>Career Path Planner</strong></li>
+            <li><strong>FAFSA Navigator</strong></li>
+            <li><strong>W-4 Form Guide</strong></li>
+            <li><strong>Bank Account Simulator</strong></li>
+            <li><strong>Budget Calculator</strong></li>
+            <li><strong>Investment Simulator</strong></li>
+            <li><strong>Loan Repayment Planner</strong></li>
+            <li><strong>Credit Score Simulator</strong></li>
+            <li><strong>Resume Builder</strong></li>
+            <li><strong>Interview Simulator</strong></li>
+          </ul>
+        </div>
+        
+        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+          <div style="width: 300px; height: 300px; background-color: rgba(255, 255, 255, 0.2); border-radius: 8px; display: flex; justify-content: center; align-items: center; margin-bottom: 1rem;">
+            <span style="font-size: 5rem;">💻</span>
+          </div>
+          <p style="font-size: 1.25rem; text-align: center; color: white;">Interactive tools that simulate real-world financial scenarios</p>
+        </div>
+      </div>
+      
+      <div class="slide-footer" style="color: rgba(255, 255, 255, 0.7);">
+        <div>PFL Academy</div>
+        <div>2025</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Testimonial Slide -->
+  <div class="slide quote-slide">
+    <blockquote>
+      "PFL Academy has transformed how our students understand and engage with financial concepts. The interactive tools make abstract ideas concrete, and the two-day model ensures deep learning that sticks."
+    </blockquote>
+    <div class="attribution">
+      — Jessica Donovan, High School Economics Teacher
+    </div>
+    
+    <div class="slide-footer" style="width: 100%;">
+      <div>PFL Academy</div>
+      <div>2025</div>
+    </div>
+  </div>
+  
+  <!-- Getting Started Slide -->
+  <div class="slide list-slide">
+    <div class="slide-content">
+      <div class="slide-header">
+        <h2>Getting Started is Easy</h2>
+      </div>
+      
+      <ol>
+        <li>Create your teacher account</li>
+        <li>Set up your class and invite students</li>
+        <li>Browse curriculum and select chapters</li>
+        <li>Assign content to your class</li>
+        <li>Use teacher guides to prepare lessons</li>
+        <li>Monitor student progress</li>
+      </ol>
+      
+      <div class="highlight-box">
+        <p class="text-large" style="text-align: center; margin: 0;">Full training and support available for teachers and administrators</p>
+      </div>
+      
+      <div class="slide-footer">
+        <div>PFL Academy</div>
+        <div>2025</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Contact Slide -->
+  <div class="slide contact-slide gradient-bg">
+    <div class="slide-content">
+      <h2>Ready to Get Started?</h2>
+      
+      <div class="contact-info">
+        <p>Visit: <strong>www.pflacademy.co</strong></p>
+        <p>Email: <strong>info@pflacademy.co</strong></p>
+      </div>
+      
+      <p style="font-size: 1.5rem;">Schedule a demo today!</p>
+      
+      <div class="slide-footer" style="color: rgba(255, 255, 255, 0.7);">
+        <div>PFL Academy</div>
+        <div>2025</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

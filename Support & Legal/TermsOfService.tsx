@@ -1,0 +1,102 @@
+
+export default function TermsOfService() {
+  return (
+    <div className="bg-gray-50 min-h-screen">
+      <section className="bg-gradient-to-r from-indigo-700 via-purple-700 to-indigo-800 py-20 px-4 text-white text-center">
+        <h1 className="text-4xl font-bold mb-2">Terms of Service</h1>
+        <p className="text-lg max-w-2xl mx-auto">
+          These Terms govern your use of PFL Academy and its services. By accessing or using the platform, you agree to be bound by these terms.
+        </p>
+      </section>
+
+      <section className="py-16 px-6 max-w-4xl mx-auto space-y-10 text-gray-700 text-sm">
+        <div>
+          <h2 className="text-xl font-semibold text-indigo-700 mb-2">1. Acceptance of Terms</h2>
+          <p>
+            By accessing PFL Academy, you agree to abide by these Terms of Service and any applicable policies, including our Privacy Policy. If you do not agree, please discontinue use.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="text-xl font-semibold text-indigo-700 mb-2">2. Description of Services</h2>
+          <p>
+            PFL Academy is a digital financial literacy education platform providing interactive lessons, assessments, and instructional resources. The platform is intended for use by teachers, students, and educational institutions.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="text-xl font-semibold text-indigo-700 mb-2">3. Account Responsibilities</h2>
+          <p>
+            Users are responsible for maintaining the confidentiality of their login credentials and for all activities that occur under their account. PFL Academy is not liable for any loss resulting from unauthorized access.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="text-xl font-semibold text-indigo-700 mb-2">4. User Conduct</h2>
+          <p>
+            You agree to use the platform for lawful educational purposes only. Users may not upload harmful content, attempt to gain unauthorized access, or disrupt platform functionality.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="text-xl font-semibold text-indigo-700 mb-2">5. Intellectual Property</h2>
+          <p>
+            All curriculum content, tools, and materials are the property of PFL Academy and may not be reproduced or distributed without written consent. You may use the materials strictly for classroom or instructional use.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="text-xl font-semibold text-indigo-700 mb-2">6. Student-Generated Content</h2>
+          <p>
+            Students may submit projects, simulations, or responses within the platform. All such content remains the property of the student but may be accessed by educators for grading and feedback purposes.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="text-xl font-semibold text-indigo-700 mb-2">7. Modifications to the Service</h2>
+          <p>
+            PFL Academy may enhance, modify, or discontinue parts of the service at any time. We will provide reasonable notice when such changes affect access or instructional use.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="text-xl font-semibold text-indigo-700 mb-2">8. Termination</h2>
+          <p>
+            We reserve the right to suspend or terminate access to the platform for violations of these terms or misuse of the system. Users may also request to close their account at any time.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="text-xl font-semibold text-indigo-700 mb-2">9. Limitation of Liability</h2>
+          <p>
+            PFL Academy is provided “as is.” We do not guarantee uninterrupted access or error-free functionality. To the extent permitted by law, we disclaim all liability for damages arising from use of the platform.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="text-xl font-semibold text-indigo-700 mb-2">10. Governing Law</h2>
+          <p>
+            These terms are governed by the laws of the State of California. Any legal action must be brought in the state or federal courts located in San Francisco County.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="text-xl font-semibold text-indigo-700 mb-2">Contact</h2>
+          <p>
+            For questions about these terms, contact us at:
+          </p>
+          <p className="mt-2">
+            PFL Academy<br />
+            2380 California Street, #402<br />
+            San Francisco, CA 94115<br />
+            Email: <a href="mailto:support@pflacademy.co" className="text-indigo-600 underline">support@pflacademy.co</a>
+          </p>
+        </div>
+
+        <div className="text-xs text-gray-500">
+          Effective Date: April 10, 2025 — Last Updated: April 10, 2025
+        </div>
+      </section>
+    </div>
+  );
+}

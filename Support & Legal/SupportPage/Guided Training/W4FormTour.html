@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>W-4 Form Skill Builder Tour</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .tour-highlight {
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.6);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 10;
+      background-color: rgba(255, 255, 255, 1);
+    }
+    
+    .tour-tooltip {
+      background-color: #4338ca;
+      color: white;
+      padding: 12px 16px;
+      border-radius: 8px;
+      position: absolute;
+      width: 280px;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      z-index: 100;
+    }
+    
+    .tour-tooltip:before {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 10px solid #4338ca;
+      top: -10px;
+      left: 20px;
+    }
+    
+    .tour-tooltip.top:before {
+      border-bottom: none;
+      border-top: 10px solid #4338ca;
+      top: auto;
+      bottom: -10px;
+    }
+    
+    .tour-tooltip.right:before {
+      left: auto;
+      right: 20px;
+    }
+    
+    .form-container {
+      margin-top: 24px;
+    }
+    
+    .form-section {
+      border: 1px solid #e5e7eb;
+      margin-bottom: 24px;
+      border-radius: 0;
+    }
+    
+    .form-header {
+      background-color: #f3f4f6;
+      padding: 12px;
+      font-weight: bold;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    
+    .form-content {
+      padding: 16px;
+    }
+    
+    .input-group {
+      margin-bottom: 16px;
+    }
+    
+    .input-label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+    
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    
+    .irs-header {
+      display: flex;
+      border-bottom: 2px solid #000;
+      padding-bottom: 8px;
+    }
+    
+    .irs-logo {
+      width: 25%;
+      padding-right: 12px;
+      border-right: 1px solid #000;
+    }
+    
+    .irs-title {
+      width: 50%;
+      text-align: center;
+      padding: 0 12px;
+      border-right: 1px solid #000;
+    }
+    
+    .irs-year {
+      width: 25%;
+      text-align: right;
+      padding-left: 12px;
+    }
+    
+    .step-number {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      background-color: #4f46e5;
+      color: white;
+      font-weight: bold;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 24px;
+      margin-right: 8px;
+    }
+    
+    .step-divider {
+      height: 1px;
+      background-color: #e5e7eb;
+      margin: 24px 0;
+    }
+    
+    /* Tour animation */
+    .tour-fade {
+      animation: fade-in 0.5s ease-in-out;
+    }
+    
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Pulsing effect for highlighting */
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(79, 70, 229, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
+    }
+    
+    /* Navigation controls */
+    .tour-controls {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      display: flex;
+      gap: 12px;
+      z-index: 1000;
+    }
+    
+    .tour-button {
+      padding: 8px 16px;
+      background-color: #4f46e5;
+      color: white;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .tour-button:hover {
+      background-color: #4338ca;
+    }
+    
+    .tour-button:disabled {
+      background-color: #c7d2fe;
+      cursor: not-allowed;
+    }
+    
+    .tour-progress {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      background-color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      font-size: 14px;
+      z-index: 1000;
+    }
+    
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 5;
+      pointer-events: none;
+    }
+    
+    /* Form specific styling */
+    .w4-header {
+      border-bottom: 1px solid black;
+      padding-bottom: 8px;
+    }
+    
+    .form-separator {
+      border-bottom: 1px solid #e5e7eb;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen p-6">
+  <div class="max-w-[1000px] mx-auto py-8 bg-white rounded-lg shadow-md p-8">
+    <!-- Tour Progress Indicator -->
+    <div class="tour-progress">
+      Tour: <span id="tour-step-counter">1</span> of <span id="tour-total-steps">10</span>
+    </div>
+    
+    <!-- Overlay for focusing attention -->
+    <div class="overlay" id="overlay"></div>
+    
+    <!-- Tour Controls -->
+    <div class="tour-controls">
+      <button id="prev-button" class="tour-button" disabled>Previous</button>
+      <button id="next-button" class="tour-button">Next</button>
+      <button id="close-button" class="tour-button bg-gray-600 hover:bg-gray-700">Close Tour</button>
+    </div>
+    
+    <h1 class="text-2xl font-bold text-center mb-4">W-4 Form Skill Builder</h1>
+    <p class="text-center text-gray-600 mb-6">
+      Learn how to complete a W-4 form to properly set up tax withholding from your paycheck.
+    </p>
+    
+    <!-- Practice Scenario Section -->
+    <div class="scenario-container mb-8" id="scenario-section">
+      <h2 class="text-xl font-bold mb-4">Practice Scenario</h2>
+      <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg">
+        <h3 class="font-bold mb-2">Use the following information to complete the form:</h3>
+        <div class="md:flex md:gap-8">
+          <div class="space-y-2 mb-4 md:mb-0">
+            <p><span class="font-semibold">Name:</span> Alex Johnson</p>
+            <p><span class="font-semibold">Address:</span> 123 Main Street, Anytown, OH 12345</p>
+            <p><span class="font-semibold">SSN:</span> 123-45-6789</p>
+            <p><span class="font-semibold">Filing Status:</span> Single</p>
+          </div>
+          <div class="space-y-2">
+            <p><span class="font-semibold">Annual Income:</span> $42,000</p>
+            <p><span class="font-semibold">Multiple Jobs:</span> No</p>
+            <p><span class="font-semibold">Dependents:</span> None</p>
+            <p><span class="font-semibold">Guidance:</span> New job, first time filing W-4</p>
+          </div>
+        </div>
+        <div class="mt-4 text-sm text-blue-700">
+          <p>Note: Complete the form based on this fictitious scenario to practice correct withholding setup.</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Form Container -->
+    <div class="bg-white border-2 border-gray-200 rounded-lg shadow-md" id="form-container">
+      <!-- W-4 Form Header -->
+      <div class="irs-header p-4" id="form-header">
+        <div class="irs-logo">
+          <div class="flex items-baseline gap-2">
+            <span class="text-sm">Form</span>
+            <span class="text-4xl font-bold">W-4</span>
+          </div>
+          <div class="text-[10px] leading-tight mt-1">
+            Department of the Treasury<br />
+            Internal Revenue Service
+          </div>
+        </div>
+        <div class="irs-title">
+          <div class="font-bold text-lg">Employee's Withholding Certificate</div>
+          <div class="text-xs mt-1 leading-tight">
+            Complete Form W-4 so that your employer can withhold the correct federal income tax from your pay.<br />
+            Give Form W-4 to your employer.<br />
+            Your withholding is subject to review by the IRS.
+          </div>
+        </div>
+        <div class="irs-year">
+          <div class="text-xs">OMB No. 1545-0074</div>
+          <div class="mt-1">
+            <span class="text-2xl font-bold tracking-wider">2025</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Step 1: Personal Information -->
+      <div class="p-4 border-t border-gray-300" id="personal-info-section">
+        <div class="font-bold flex items-center mb-2">
+          <span class="step-number">1</span>
+          <span>Personal Information</span> 
+          <span class="text-sm text-gray-500 ml-2">(a) First name and middle initial</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <input type="text" placeholder="First name" class="w-full border border-gray-300 p-2 rounded" />
+          </div>
+          <div>
+            <input type="text" placeholder="Last name" class="w-full border border-gray-300 p-2 rounded" />
+          </div>
+          <div>
+            <input type="text" placeholder="Social Security Number" class="w-full border border-gray-300 p-2 rounded" />
+          </div>
+        </div>
+        <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="input-label">Address</label>
+            <input type="text" class="w-full border border-gray-300 p-2 rounded" placeholder="Street address" />
+          </div>
+          <div>
+            <label class="input-label">City, State, ZIP</label>
+            <input type="text" class="w-full border border-gray-300 p-2 rounded" placeholder="City, State ZIP" />
+          </div>
+        </div>
+        <div class="mt-4" id="filing-status-section">
+          <div class="font-bold mb-2">(b) Social security number</div>
+          <div class="font-bold mb-2">(c) Filing status (check only ONE box)</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+            <div class="flex items-center">
+              <input type="radio" id="single" name="filingStatus" class="mr-2" />
+              <label for="single">Single or Married filing separately</label>
+            </div>
+            <div class="flex items-center">
+              <input type="radio" id="married" name="filingStatus" class="mr-2" />
+              <label for="married">Married filing jointly</label>
+            </div>
+            <div class="flex items-center">
+              <input type="radio" id="head" name="filingStatus" class="mr-2" />
+              <label for="head">Head of household</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Step 2: Multiple Jobs -->
+      <div class="p-4 border-t border-gray-300" id="multiple-jobs-section">
+        <div class="font-bold flex items-center">
+          <span class="step-number">2</span>
+          <span>Multiple Jobs or Spouse Works</span>
+        </div>
+        <div class="mt-2 bg-gray-100 p-3 rounded">
+          <p class="text-sm">Complete this step if you (1) hold more than one job at a time, or (2) are married filing jointly and your spouse also works. The correct amount of withholding depends on income earned from all of these jobs.</p>
+          <div class="mt-3">
+            <div class="flex items-start">
+              <input type="checkbox" id="multipleJobs" class="mt-1 mr-2" />
+              <label for="multipleJobs" class="text-sm">
+                Check this box if there are only two jobs total. Do the same on Form W-4 for the other job.
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Step 3: Dependents -->
+      <div class="p-4 border-t border-gray-300" id="dependents-section">
+        <div class="font-bold flex items-center">
+          <span class="step-number">3</span>
+          <span>Claim Dependents</span>
+        </div>
+        <div class="mt-2">
+          <p class="text-sm mb-3">If your total income will be $200,000 or less ($400,000 or less if married filing jointly):</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="input-label">Multiply the number of qualifying children under age 17 by $2,000</label>
+              <div class="flex items-center">
+                <span class="mr-2">$</span>
+                <input type="text" class="w-full border border-gray-300 p-2 rounded" />
+              </div>
+            </div>
+            <div>
+              <label class="input-label">Multiply the number of other dependents by $500</label>
+              <div class="flex items-center">
+                <span class="mr-2">$</span>
+                <input type="text" class="w-full border border-gray-300 p-2 rounded" />
+              </div>
+            </div>
+          </div>
+          <div class="mt-3">
+            <label class="input-label">Add the amounts above for qualifying children and other dependents</label>
+            <div class="flex items-center">
+              <span class="mr-2">$</span>
+              <input type="text" class="w-full border border-gray-300 p-2 rounded" />
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Step 4: Other Adjustments -->
+      <div class="p-4 border-t border-gray-300" id="adjustments-section">
+        <div class="font-bold flex items-center">
+          <span class="step-number">4</span>
+          <span>Other Adjustments (Optional)</span>
+        </div>
+        <div class="mt-2">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label class="input-label">(a) Other income (not from jobs)</label>
+              <div class="flex items-center">
+                <span class="mr-2">$</span>
+                <input type="text" class="w-full border border-gray-300 p-2 rounded" placeholder="0" />
+              </div>
+            </div>
+            <div>
+              <label class="input-label">(b) Deductions</label>
+              <div class="flex items-center">
+                <span class="mr-2">$</span>
+                <input type="text" class="w-full border border-gray-300 p-2 rounded" placeholder="0" />
+              </div>
+            </div>
+            <div>
+              <label class="input-label">(c) Extra withholding per pay period</label>
+              <div class="flex items-center">
+                <span class="mr-2">$</span>
+                <input type="text" class="w-full border border-gray-300 p-2 rounded" placeholder="0" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Step 5: Sign Here -->
+      <div class="p-4 border-t border-gray-300" id="signature-section">
+        <div class="font-bold flex items-center">
+          <span class="step-number">5</span>
+          <span>Sign Here</span>
+        </div>
+        <div class="mt-2">
+          <p class="text-sm mb-3">Under penalties of perjury, I declare that this certificate, to the best of my knowledge and belief, is true, correct, and complete.</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="input-label">Employee's signature</label>
+              <input type="text" class="w-full border border-gray-300 p-2 rounded" />
+            </div>
+            <div>
+              <label class="input-label">Date</label>
+              <input type="date" class="w-full border border-gray-300 p-2 rounded" />
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Employer Section -->
+      <div class="p-4 border-t border-gray-300 bg-gray-50" id="employer-section">
+        <div class="font-bold mb-3">Employers Only</div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="input-label">Employer's name and address</label>
+            <input type="text" class="w-full border border-gray-300 p-2 rounded" />
+          </div>
+          <div>
+            <label class="input-label">First date of employment</label>
+            <input type="date" class="w-full border border-gray-300 p-2 rounded" />
+          </div>
+          <div>
+            <label class="input-label">Employer identification number (EIN)</label>
+            <input type="text" class="w-full border border-gray-300 p-2 rounded" />
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="mt-8 flex justify-end">
+      <button class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
+        Submit Form
+      </button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Tour steps data
+      const tourSteps = [
+        {
+          element: '#scenario-section',
+          title: 'Practice Scenario',
+          description: 'This section provides the information you\'ll use to complete the W-4 form. For this exercise, you\'ll use the details of Alex Johnson who is starting a new job.',
+          position: ''
+        },
+        {
+          element: '#form-header',
+          title: 'Form Header',
+          description: 'This is the official IRS W-4 form header. The W-4 is used by employers to determine how much federal income tax to withhold from your paycheck.',
+          position: ''
+        },
+        {
+          element: '#personal-info-section',
+          title: 'Step 1: Personal Information',
+          description: 'Enter your personal identification information here, including your name, Social Security Number, and address. This information must match your Social Security card.',
+          position: ''
+        },
+        {
+          element: '#filing-status-section',
+          title: 'Filing Status',
+          description: 'Select your tax filing status. This significantly affects your tax withholding. For Alex Johnson, you should select "Single or Married filing separately" since the scenario states he is single.',
+          position: ''
+        },
+        {
+          element: '#multiple-jobs-section',
+          title: 'Step 2: Multiple Jobs',
+          description: 'Check this box if you have more than one job or if you\'re married filing jointly and your spouse works. This helps ensure enough tax is withheld. For Alex, you would leave this unchecked since he only has one job.',
+          position: ''
+        },
+        {
+          element: '#dependents-section',
+          title: 'Step 3: Claim Dependents',
+          description: 'Claim qualifying children and other dependents here. Each dependent reduces your withholding. Alex has no dependents, so you should leave all fields blank or enter zero.',
+          position: ''
+        },
+        {
+          element: '#adjustments-section',
+          title: 'Step 4: Other Adjustments',
+          description: 'This optional section allows you to account for additional income, deductions, or extra withholding. For most new employees like Alex, this section can be left blank.',
+          position: ''
+        },
+        {
+          element: '#signature-section',
+          title: 'Step 5: Sign Here',
+          description: 'Your signature certifies that all information provided is accurate. Be sure to sign and date the form before giving it to your employer.',
+          position: ''
+        },
+        {
+          element: '#employer-section',
+          title: 'Employer Section',
+          description: 'This section is completed by your employer, not by you. It includes the employer\'s name, address, EIN (Employer Identification Number), and your first day of employment.',
+          position: ''
+        },
+        {
+          element: '#form-container',
+          title: 'Complete Form',
+          description: 'Now that you understand each section of the W-4, you would complete the form according to your particular situation and submit it to your employer. Remember that you can file a new W-4 whenever your personal or financial situation changes.',
+          position: ''
+        }
+      ];
+      
+      let currentStep = 0;
+      const totalSteps = tourSteps.length;
+      
+      // Update step counter
+      document.getElementById('tour-total-steps').textContent = totalSteps;
+      
+      // Tour control elements
+      const prevButton = document.getElementById('prev-button');
+      const nextButton = document.getElementById('next-button');
+      const closeButton = document.getElementById('close-button');
+      const stepCounter = document.getElementById('tour-step-counter');
+      const overlay = document.getElementById('overlay');
+      
+      // Function to show a tour step
+      function showTourStep(stepIndex) {
+        // Remove existing tooltips and highlights
+        const existingTooltips = document.querySelectorAll('.tour-tooltip');
+        existingTooltips.forEach(tooltip => tooltip.remove());
+        
+        const existingHighlights = document.querySelectorAll('.tour-highlight');
+        existingHighlights.forEach(highlight => {
+          highlight.classList.remove('tour-highlight', 'pulse');
+        });
+        
+        // Get the step data
+        const step = tourSteps[stepIndex];
+        if (!step) return;
+        
+        // Get the target element
+        const targetElement = document.querySelector(step.element);
+        if (!targetElement) return;
+        
+        // Add highlight to target element
+        targetElement.classList.add('tour-highlight', 'pulse');
+        
+        // Create tooltip
+        const tooltip = document.createElement('div');
+        tooltip.className = `tour-tooltip tour-fade ${step.position}`;
+        
+        // Position the tooltip
+        const rect = targetElement.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (step.position === 'top') {
+          tooltip.classList.add('top');
+          tooltip.style.top = `${rect.top + scrollTop - tooltip.offsetHeight - 20}px`;
+          tooltip.style.left = `${rect.left}px`;
+        } else if (step.position === 'top-right') {
+          tooltip.classList.add('top', 'right');
+          tooltip.style.top = `${rect.top + scrollTop - tooltip.offsetHeight - 20}px`;
+          tooltip.style.left = `${rect.left - 200}px`;
+        } else {
+          // Default: position below the element (bottom)
+          tooltip.style.top = `${rect.bottom + scrollTop + 20}px`;
+          tooltip.style.left = `${rect.left}px`;
+        }
+        
+        // Add tooltip content
+        tooltip.innerHTML = `
+          <h3 class="font-bold mb-1">${step.title}</h3>
+          <p>${step.description}</p>
+        `;
+        
+        // Add tooltip to the DOM
+        document.body.appendChild(tooltip);
+        
+        // Update step counter
+        stepCounter.textContent = stepIndex + 1;
+        
+        // Update button states
+        prevButton.disabled = stepIndex === 0;
+        nextButton.disabled = stepIndex === totalSteps - 1;
+        
+        // Scroll the element into view if needed
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+      }
+      
+      // Initialize the tour
+      showTourStep(currentStep);
+      
+      // Set up event listeners for controls
+      prevButton.addEventListener('click', () => {
+        if (currentStep > 0) {
+          currentStep--;
+          showTourStep(currentStep);
+        }
+      });
+      
+      nextButton.addEventListener('click', () => {
+        if (currentStep < totalSteps - 1) {
+          currentStep++;
+          showTourStep(currentStep);
+        }
+      });
+      
+      closeButton.addEventListener('click', () => {
+        // Remove all tooltips and highlights
+        const tooltips = document.querySelectorAll('.tour-tooltip');
+        tooltips.forEach(tooltip => tooltip.remove());
+        
+        const highlights = document.querySelectorAll('.tour-highlight');
+        highlights.forEach(highlight => {
+          highlight.classList.remove('tour-highlight', 'pulse');
+        });
+        
+        // Hide tour controls
+        document.querySelector('.tour-controls').style.display = 'none';
+        document.querySelector('.tour-progress').style.display = 'none';
+      });
+    });
+  </script>
+</body>
+</html>

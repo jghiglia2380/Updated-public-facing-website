@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAFSA Skill Builder Complete Tour</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .tour-highlight {
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.6);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 10;
+      background-color: rgba(255, 255, 255, 1); /* Keep background fully visible */
+    }
+    
+    .tour-tooltip {
+      background-color: #4338ca;
+      color: white;
+      padding: 12px 16px;
+      border-radius: 8px;
+      position: absolute;
+      width: 280px;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      z-index: 100;
+    }
+    
+    .tour-tooltip:before {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 10px solid #4338ca;
+      top: -10px;
+      left: 20px;
+    }
+    
+    .tour-tooltip.top:before {
+      border-bottom: none;
+      border-top: 10px solid #4338ca;
+      top: auto;
+      bottom: -10px;
+    }
+    
+    .tour-tooltip.right:before {
+      left: auto;
+      right: 20px;
+    }
+    
+    /* Fade effect for tour animation */
+    .tour-fade {
+      animation: fade-in 0.5s ease-in-out;
+    }
+    
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Pulsing effect for highlighting */
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(79, 70, 229, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
+    }
+    
+    /* Navigation controls */
+    .tour-controls {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      display: flex;
+      gap: 12px;
+      z-index: 1000;
+    }
+    
+    .tour-button {
+      padding: 8px 16px;
+      background-color: #4f46e5;
+      color: white;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .tour-button:hover {
+      background-color: #4338ca;
+    }
+    
+    .tour-button:disabled {
+      background-color: #c7d2fe;
+      cursor: not-allowed;
+    }
+    
+    .tour-progress {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      background-color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      font-size: 14px;
+      z-index: 1000;
+    }
+    
+    .overlay {
+      display: none; /* Hide the overlay to keep all content visible */
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 5;
+      pointer-events: none;
+    }
+    
+    /* Form Elements Page 1 */
+    .section-box {
+      border: 1px solid #e5e7eb;
+      padding: 16px;
+      margin-bottom: 16px;
+      border-radius: 8px;
+    }
+    
+    .section-title {
+      font-weight: bold;
+      margin-bottom: 12px;
+      background-color: #f3f4f6;
+      padding: 8px;
+      border-radius: 4px;
+    }
+    
+    .form-container {
+      margin-top: 24px;
+    }
+    
+    .input-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    
+    .section-header {
+      background-color: #4f46e5;
+      color: white;
+      padding: 12px;
+      margin-bottom: 16px;
+      border-radius: 6px;
+    }
+    
+    .info-box {
+      background-color: #f0f9ff;
+      border: 1px solid #bae6fd;
+      padding: 12px;
+      margin-bottom: 16px;
+      border-radius: 4px;
+    }
+    
+    .alien-grid {
+      display: flex;
+      gap: 4px;
+      margin-top: 8px;
+    }
+    
+    .alien-box {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid black;
+      text-align: center;
+    }
+    
+    .parent-education {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    
+    .parent-question {
+      grid-column: span 2;
+    }
+    
+    /* Form Elements Page 2 */
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background-color: #d1d5db;
+    }
+    
+    .checkbox-item {
+      border: 1px solid #d1d5db;
+      background-color: white;
+      padding: 1rem;
+    }
+    
+    /* Form Elements Page 3 */
+    .parent-section-header {
+      background-color: #8b5cf6;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 6px;
+      margin-bottom: 24px;
+      font-weight: bold;
+    }
+    
+    /* Form Elements Page 4 */
+    .summary-section {
+      border: 1px solid #e5e7eb;
+      margin-bottom: 1rem;
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+    
+    .summary-header {
+      background-color: #f3f4f6;
+      padding: 0.75rem 1rem;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .summary-content {
+      padding: 1rem;
+    }
+    
+    .info-row {
+      display: flex;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    
+    .info-label {
+      width: 40%;
+      font-weight: 500;
+      color: #4b5563;
+    }
+    
+    .info-value {
+      width: 60%;
+      color: #111827;
+    }
+    
+    .success-banner {
+      background-color: #ecfdf5;
+      border: 1px solid #10b981;
+      color: #065f46;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    .error-banner {
+      background-color: #fef2f2;
+      border: 1px solid #ef4444;
+      color: #b91c1c;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    /* Page Transitions */
+    .page {
+      display: none;
+    }
+    
+    .page.active {
+      display: block;
+      animation: fadeIn 0.5s;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    /* Additional Navigation */
+    .page-indicator {
+      display: flex;
+      justify-content: center;
+      margin-top: 1rem;
+      gap: 0.5rem;
+    }
+    
+    .page-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    .page-dot.active {
+      background-color: #4f46e5;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen p-6">
+  <div class="max-w-[1000px] mx-auto py-8 bg-white rounded-lg shadow-md p-8">
+    <!-- Tour Progress Indicator -->
+    <div class="tour-progress">
+      Tour: <span id="tour-step-counter">1</span> of <span id="tour-total-steps">10</span>
+    </div>
+    
+    <!-- Overlay for focusing attention -->
+    <div class="overlay" id="overlay"></div>
+    
+    <!-- Tour Controls -->
+    <div class="tour-controls">
+      <button id="prev-button" class="tour-button" disabled>Previous</button>
+      <button id="next-button" class="tour-button">Next</button>
+      <button id="close-button" class="tour-button bg-gray-600 hover:bg-gray-700">Close Tour</button>
+    </div>
+    
+    <h1 class="text-2xl font-bold text-center mb-4">FAFSA Skill Builder</h1>
+    <p class="text-center text-gray-600 mb-6">
+      Learn how to complete the FAFSA form with this interactive simulation.
+    </p>
+    
+    <!-- Page Navigation -->
+    <div class="page-indicator mb-6">
+      <div class="page-dot active" data-page="1"></div>
+      <div class="page-dot" data-page="2"></div>
+      <div class="page-dot" data-page="3"></div>
+      <div class="page-dot" data-page="4"></div>
+    </div>
+    
+    <!-- =============== PAGE 1: STUDENT INFORMATION =============== -->
+    <div id="page1" class="page active">
+      <!-- Step Progress Bar -->
+      <div class="mb-8" id="progress-section-1">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-medium text-gray-700">
+            Step 1 of 4
+          </span>
+          <span class="text-sm text-gray-500">
+            25% Complete
+          </span>
+        </div>
+        
+        <div class="relative">
+          <div class="w-full h-2 bg-gray-200 rounded-full">
+            <div
+              class="h-2 bg-indigo-600 rounded-full transition-all duration-300"
+              style="width: 25%"
+            ></div>
+          </div>
+          
+          <div class="absolute top-4 left-0 w-full flex justify-between">
+            <div class="text-xs text-indigo-600">Student Information</div>
+            <div class="text-xs text-gray-400">Dependency Status</div>
+            <div class="text-xs text-gray-400">Parent Information</div>
+            <div class="text-xs text-gray-400">Review & Submit</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- FAFSA Form Content -->
+      <div class="bg-white rounded-lg shadow-lg p-6">
+        <!-- Practice Scenario Section -->
+        <div class="scenario-container" id="scenario-section-1">
+          <h2 class="text-xl font-bold mb-4">Practice Scenario</h2>
+          <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg mb-8">
+            <h3 class="font-bold mb-2">Use the following information to complete the form:</h3>
+            <div class="space-y-2">
+              <p><span class="font-semibold">Name:</span> Jordan Rivers</p>
+              <p><span class="font-semibold">Citizenship Status:</span> U.S. citizen</p>
+              <p><span class="font-semibold">Marital Status:</span> Single</p>
+              <p><span class="font-semibold">Parent 1 Education:</span> College or beyond</p>
+              <p><span class="font-semibold">Parent 2 Education:</span> High school</p>
+            </div>
+            <div class="mt-4 text-sm text-blue-700">
+              <p>Note: For practice purposes, use any 9 digits for the Social Security Number.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-container">
+          <!-- Section 1 Header -->
+          <div class="section-header" id="section-header-1">
+            <h1>SECTION 1 - STUDENT INFORMATION</h1>
+          </div>
+          
+          <div class="info-box">
+            After you are online, you can add up to ten colleges on your FAFSA
+            form. The colleges will receive the information from your processed
+            FAFSA form.
+          </div>
+          
+          <!-- Student Name and SSN Section -->
+          <div class="input-grid" id="student-info-section-1">
+            <div>
+              <div class="font-bold mb-2">Student's Last Name</div>
+              <input
+                type="text"
+                name="lastName"
+                value=""
+                class="w-full border border-black p-1"
+              />
+            </div>
+            <div>
+              <div class="font-bold mb-2">First Name</div>
+              <input
+                type="text"
+                name="firstName" 
+                value=""
+                class="w-full border border-black p-1"
+              />
+            </div>
+            <div>
+              <div class="font-bold mb-2">Social Security Number</div>
+              <div class="flex gap-1">
+                <input type="text" maxlength="3" class="w-12 border border-black p-1" placeholder="XXX" />
+                <span class="self-center">-</span>
+                <input type="text" maxlength="2" class="w-10 border border-black p-1" placeholder="XX" />
+                <span class="self-center">-</span>
+                <input type="text" maxlength="4" class="w-16 border border-black p-1" placeholder="XXXX" />
+              </div>
+            </div>
+          </div>
+          
+          <!-- Citizenship Status Section -->
+          <div class="section-box" id="citizenship-section-1">
+            <div class="section-title">
+              Student Citizenship Status (check one of the following)
+            </div>
+            
+            <div class="alien-registration">
+              <div class="font-bold">Your Alien Registration Number</div>
+              <div class="alien-grid">
+                <div class="alien-box">A</div>
+                <input type="text" maxlength="1" class="alien-box" />
+                <input type="text" maxlength="1" class="alien-box" />
+                <input type="text" maxlength="1" class="alien-box" />
+                <input type="text" maxlength="1" class="alien-box" />
+                <input type="text" maxlength="1" class="alien-box" />
+                <input type="text" maxlength="1" class="alien-box" />
+                <input type="text" maxlength="1" class="alien-box" />
+                <input type="text" maxlength="1" class="alien-box" />
+              </div>
+            </div>
+            
+            <div>
+              <label class="checkbox-label">
+                <input
+                  type="radio"
+                  name="citizenship"
+                  value="us-citizen"
+                  class="mr-1"
+                />
+                U.S. citizen (U.S. national)
+              </label>
+            </div>
+            
+            <div>
+              <label class="checkbox-label">
+                <input
+                  type="radio"
+                  name="citizenship"
+                  value="neither"
+                  class="mr-1"
+                />
+                Neither citizen nor eligible noncitizen
+              </label>
+            </div>
+            
+            <div>
+              <label class="checkbox-label">
+                <input
+                  type="radio"
+                  name="citizenship"
+                  value="eligible-noncitizen"
+                  class="mr-1"
+                />
+                Eligible noncitizen (Enter your Alien Registration Number in the box
+                to the right.)
+              </label>
+            </div>
+            
+            <div class="mt-4">
+              <div class="font-bold">
+                Generally, you are an eligible noncitizen if you are:
+              </div>
+              <ul class="list-disc ml-6 mt-2">
+                <li>
+                  A permanent U.S. resident with a Permanent Resident Card (I-551);
+                </li>
+                <li>
+                  A conditional permanent resident with a Conditional Green Card
+                  (I-551C);
+                </li>
+                <li>
+                  The holder of an Arrival-Departure Record (I-94) from the Department
+                  of Homeland Security showing any of the following designations:
+                  "Refugee," "Asylum Granted," "Parolee" (I-94 confirms paroled for a
+                  minimum of one year and status has not expired), T-Visa holder (T-1,
+                  T-2, T-3, etc.) or "Cuban-Haitian Entrant;" or
+                </li>
+                <li>
+                  The holder of a valid certification or eligibility letter from the
+                  Department of Health and Human Services showing a designation of
+                  "Victim of human trafficking."
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <!-- Marital Status Section -->
+          <div class="section-box" id="marital-section-1">
+            <div class="section-title">Student Marital Status</div>
+            
+            <div class="marital-status">
+              <label class="checkbox-label">
+                <input
+                  type="checkbox"
+                  name="maritalStatus"
+                  class="mr-1"
+                />
+                Single
+              </label>
+            </div>
+          </div>
+          
+          <!-- Parent Education Section -->
+          <div class="section-box" id="parent-education-section-1">
+            <div class="parent-education">
+              <!-- Parent 1 Education -->
+              <div class="parent-question">
+                <div class="font-bold">
+                  What is the highest school Parent 1 completed?
+                </div>
+              </div>
+              
+              <div>
+                <label class="checkbox-label">
+                  <input
+                    type="radio"
+                    name="parent1Education"
+                    value="middle"
+                    class="mr-1"
+                  />
+                  Middle school/Jr. high
+                </label>
+                <label class="checkbox-label mt-2">
+                  <input
+                    type="radio"
+                    name="parent1Education"
+                    value="high"
+                    class="mr-1"
+                  />
+                  High school
+                </label>
+              </div>
+              
+              <div>
+                <label class="checkbox-label">
+                  <input
+                    type="radio"
+                    name="parent1Education"
+                    value="college"
+                    class="mr-1"
+                  />
+                  College or beyond
+                </label>
+                <label class="checkbox-label mt-2">
+                  <input
+                    type="radio"
+                    name="parent1Education"
+                    value="other"
+                    class="mr-1"
+                  />
+                  Other/unknown
+                </label>
+              </div>
+              
+              <!-- Parent 2 Education -->
+              <div class="parent-question mt-4">
+                <div class="font-bold">
+                  What is the highest school Parent 2 completed?
+                </div>
+              </div>
+              
+              <div>
+                <label class="checkbox-label">
+                  <input
+                    type="radio"
+                    name="parent2Education"
+                    value="middle"
+                    class="mr-1"
+                  />
+                  Middle school/Jr. high
+                </label>
+                <label class="checkbox-label mt-2">
+                  <input
+                    type="radio"
+                    name="parent2Education"
+                    value="high"
+                    class="mr-1"
+                  />
+                  High school
+                </label>
+              </div>
+              
+              <div>
+                <label class="checkbox-label">
+                  <input
+                    type="radio"
+                    name="parent2Education"
+                    value="college"
+                    class="mr-1"
+                  />
+                  College or beyond
+                </label>
+                <label class="checkbox-label mt-2">
+                  <input
+                    type="radio"
+                    name="parent2Education"
+                    value="other"
+                    class="mr-1"
+                  />
+                  Other/unknown
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-8 flex justify-end">
+        <button id="page1-next-button" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
+          Next Step
+        </button>
+      </div>
+    </div>
+    
+    <!-- =============== PAGE 2: DEPENDENCY STATUS =============== -->
+    <div id="page2" class="page">
+      <!-- Step Progress Bar -->
+      <div class="mb-8" id="progress-section-2">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-medium text-gray-700">
+            Step 2 of 4
+          </span>
+          <span class="text-sm text-gray-500">
+            50% Complete
+          </span>
+        </div>
+        
+        <div class="relative">
+          <div class="w-full h-2 bg-gray-200 rounded-full">
+            <div
+              class="h-2 bg-indigo-600 rounded-full transition-all duration-300"
+              style="width: 50%"
+            ></div>
+          </div>
+          
+          <div class="absolute top-4 left-0 w-full flex justify-between">
+            <div class="text-xs text-indigo-600">Student Information</div>
+            <div class="text-xs text-indigo-600">Dependency Status</div>
+            <div class="text-xs text-gray-400">Parent Information</div>
+            <div class="text-xs text-gray-400">Review & Submit</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Main Content -->
+      <div class="max-w-4xl mx-auto p-4 bg-white rounded-lg shadow-lg">
+        <!-- Section 2 Header -->
+        <div class="bg-gray-300 p-2 mb-4" id="section-header-2">
+          <h2 class="text-lg font-bold">
+            SECTION 2 - STUDENT DEPENDENCY STATUS
+          </h2>
+        </div>
+
+        <!-- Introduction Text -->
+        <div class="mb-4 text-sm" id="introduction-text-2">
+          <p>
+            If you can check ANY of the following boxes, you will not have to
+            provide parental information. Skip to page 4.
+          </p>
+          <p>
+            If you check NONE of the following boxes, you will be asked to provide
+            parental information. Go to the next page.
+          </p>
+        </div>
+
+        <!-- Dependency Checkboxes -->
+        <div class="checkbox-grid mb-6" id="dependency-checkboxes-2">
+          <div class="checkbox-item">
+            <label class="checkbox-label">
+              <input type="checkbox" class="mt-1" />
+              <span class="text-sm">Born Before 2000</span>
+            </label>
+          </div>
+          
+          <div class="checkbox-item">
+            <label class="checkbox-label">
+              <input type="checkbox" class="mt-1" />
+              <span class="text-sm">Married</span>
+            </label>
+          </div>
+          
+          <div class="checkbox-item">
+            <label class="checkbox-label">
+              <input type="checkbox" class="mt-1" />
+              <span class="text-sm">Graduate Program</span>
+            </label>
+          </div>
+          
+          <div class="checkbox-item">
+            <label class="checkbox-label">
+              <input type="checkbox" class="mt-1" />
+              <span class="text-sm">Active Duty</span>
+            </label>
+          </div>
+          
+          <div class="checkbox-item">
+            <label class="checkbox-label">
+              <input type="checkbox" class="mt-1" />
+              <span class="text-sm">Veteran</span>
+            </label>
+          </div>
+          
+          <div class="checkbox-item">
+            <label class="checkbox-label">
+              <input type="checkbox" class="mt-1" />
+              <span class="text-sm">Children</span>
+            </label>
+          </div>
+          
+          <div class="checkbox-item">
+            <label class="checkbox-label">
+              <input type="checkbox" class="mt-1" />
+              <span class="text-sm">Parents Deceased</span>
+            </label>
+          </div>
+          
+          <div class="checkbox-item">
+            <label class="checkbox-label">
+              <input type="checkbox" class="mt-1" />
+              <span class="text-sm">Foster Care</span>
+            </label>
+          </div>
+          
+          <div class="checkbox-item">
+            <label class="checkbox-label">
+              <input type="checkbox" class="mt-1" />
+              <span class="text-sm">Dependents</span>
+            </label>
+          </div>
+          
+          <div class="checkbox-item">
+            <label class="checkbox-label">
+              <input type="checkbox" class="mt-1" />
+              <span class="text-sm">Ward Of Court</span>
+            </label>
+          </div>
+          
+          <div class="checkbox-item">
+            <label class="checkbox-label">
+              <input type="checkbox" class="mt-1" />
+              <span class="text-sm">Emancipated</span>
+            </label>
+          </div>
+          
+          <div class="checkbox-item">
+            <label class="checkbox-label">
+              <input type="checkbox" class="mt-1" />
+              <span class="text-sm">Legal Guardianship</span>
+            </label>
+          </div>
+          
+          <div class="checkbox-item">
+            <label class="checkbox-label">
+              <input type="checkbox" class="mt-1" />
+              <span class="text-sm">Homeless</span>
+            </label>
+          </div>
+        </div>
+        
+        <!-- Notes Section -->
+        <div class="mt-4 border border-gray-300 p-4" id="notes-section-2">
+          <h3 class="font-bold mb-2">NOTES:</h3>
+          <textarea
+            class="w-full h-32 p-2 border border-gray-300"
+            placeholder="Enter any additional notes here..."
+          ></textarea>
+        </div>
+        
+        <!-- Navigation Buttons -->
+        <div class="mt-8 flex justify-between" id="navigation-buttons-2">
+          <button id="page2-prev-button" class="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition">
+            Previous Step
+          </button>
+          <button id="page2-next-button" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
+            Next Step
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- =============== PAGE 3: PARENT INFORMATION =============== -->
+    <div id="page3" class="page">
+      <!-- Step Progress Bar -->
+      <div class="mb-8" id="progress-section-3">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-medium text-gray-700">
+            Step 3 of 4
+          </span>
+          <span class="text-sm text-gray-500">
+            75% Complete
+          </span>
+        </div>
+        
+        <div class="relative">
+          <div class="w-full h-2 bg-gray-200 rounded-full">
+            <div
+              class="h-2 bg-indigo-600 rounded-full transition-all duration-300"
+              style="width: 75%"
+            ></div>
+          </div>
+          
+          <div class="absolute top-4 left-0 w-full flex justify-between">
+            <div class="text-xs text-indigo-600">Student Information</div>
+            <div class="text-xs text-indigo-600">Dependency Status</div>
+            <div class="text-xs text-indigo-600">Parent Information</div>
+            <div class="text-xs text-gray-400">Review & Submit</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Selected Scenario Information -->
+      <div class="bg-white max-w-4xl mx-auto mb-8 p-4 rounded-lg shadow-md" id="scenario-section-3">
+        <h2 class="text-lg font-bold text-purple-900 mb-4">
+          Selected Scenario: Jordan Rivers' Family
+        </h2>
+        <div class="prose max-w-none">
+          <h3>Parent Information</h3>
+          <h4>Parent 1</h4>
+          <ul>
+            <li>Name: Michael Rivers</li>
+            <li>SSN: XXX-XX-7890</li>
+            <li>Date of Birth: 05/15/1975</li>
+            <li>Dislocated Worker: No</li>
+          </ul>
+
+          <h4>Parent 2</h4>
+          <ul>
+            <li>Name: Sarah Rivers</li>
+            <li>SSN: XXX-XX-4321</li>
+            <li>Date of Birth: 08/22/1978</li>
+            <li>Dislocated Worker: No</li>
+          </ul>
+
+          <h3>Financial Information</h3>
+          <ul>
+            <li>Adjusted Gross Income: $78,500</li>
+            <li>Parent 1 Income from Working: $48,000</li>
+            <li>Parent 2 Income from Working: $30,500</li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Main Content -->
+      <div class="max-w-4xl mx-auto p-4 bg-white rounded-lg shadow-lg">
+        <!-- Section 3 Header -->
+        <div class="bg-purple-200 p-3 mb-4" id="section-header-3">
+          <h2 class="text-xl font-bold text-purple-900">
+            SECTION 3 - PARENT INFORMATION
+          </h2>
+        </div>
+
+        <!-- Parent Definition -->
+        <div class="border border-purple-900 p-4 mb-4" id="parent-definition-3">
+          <h3 class="text-purple-900 font-bold mb-2">Who is considered a parent?</h3>
+          <p class="text-sm">
+            "Parent" refers to a biological or adoptive parent or a person determined by the state to be a parent (for example, if the parent is listed on the birth 
+            certificate). Grandparents, foster parents, legal guardians, older siblings, and uncles or aunts are not considered parents on this form unless they 
+            have legally adopted you. If your legal parents are living and married to each other, answer the questions about both of them. If your legal parents 
+            are not married and live together, answer the questions about both of them. In case of divorce or separation, give information about the parent 
+            you lived with most in the last 12 months. If you did not live with one parent more than the other, give information about the parent who provided 
+            you the most financial support during the last 12 months or during the most recent year you received support. If your divorced or widowed parent 
+            has remarried, also provide information about your stepparent.
+          </p>
+        </div>
+
+        <!-- Parents Information Needed -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4" id="parent-info-section-3">
+          <div class="border border-purple-900 p-4">
+            <h3 class="text-purple-900 font-bold mb-2">
+              Providing parent 1 information? You will need:
+            </h3>
+            <div class="space-y-2">
+              <p>Parent 1 (father/mother/stepparent) Social Security Number</p>
+              <p>Parent 1 (father/mother/stepparent) name</p>
+              <p>Parent 1 (father/mother/stepparent) date of birth</p>
+              <label class="grid grid-cols-[20px,1fr] items-center gap-2">
+                <input
+                  type="checkbox"
+                  class="form-checkbox"
+                />
+                <span>Check here if parent 1 is a dislocated worker</span>
+              </label>
+            </div>
+          </div>
+          
+          <div class="border border-purple-900 p-4">
+            <h3 class="text-purple-900 font-bold mb-2">
+              Providing parent 2 information? You will need:
+            </h3>
+            <div class="space-y-2">
+              <p>Parent 2 (father/mother/stepparent) Social Security Number</p>
+              <p>Parent 2 (father/mother/stepparent) name</p>
+              <p>Parent 2 (father/mother/stepparent) date of birth</p>
+              <label class="grid grid-cols-[20px,1fr] items-center gap-2">
+                <input
+                  type="checkbox"
+                  class="form-checkbox"
+                />
+                <span>Check here if parent 2 is a dislocated worker</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Tax Return Information -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4" id="tax-section-3">
+          <div class="border border-purple-900 p-4">
+            <h3 class="text-purple-900 font-bold mb-2">Did you know?</h3>
+            <p class="text-sm">
+              If your parents file a federal tax return, they may be able to use the
+              IRS Data Retrieval Tool. This tool enables your parents to easily,
+              accurately, and securely transfer their tax return information into
+              the FAFSA form.
+            </p>
+          </div>
+
+          <div class="border border-purple-900 p-4">
+            <h3 class="text-purple-900 font-bold mb-2">
+              Did your parents file or will they file a 2023 income tax return?
+            </h3>
+            <div class="space-y-2">
+              <label class="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name="taxReturnStatus"
+                  value="completed"
+                  class="form-radio"
+                />
+                <span>My parents have already completed a tax return</span>
+              </label>
+              <label class="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name="taxReturnStatus"
+                  value="will-file"
+                  class="form-radio"
+                />
+                <span>
+                  My parents will file, but have not yet completed a tax return
+                </span>
+              </label>
+              <label class="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name="taxReturnStatus"
+                  value="not-filing"
+                  class="form-radio"
+                />
+                <span>My parents are not going to file an income tax return</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Income Questions Section -->
+        <div class="border border-purple-900 p-4 mb-4" id="income-section-3">
+          <h3 class="text-purple-900 font-bold mb-2">Income Questions</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <p class="font-medium mb-1">What was your parents' adjusted gross income for 2023?</p>
+              <div class="flex items-center">
+                <span class="text-gray-500 mr-1">$</span>
+                <input type="text" class="border border-gray-300 p-1 w-full" placeholder="Amount" />
+              </div>
+              <p class="text-xs text-gray-500 mt-1">
+                Adjusted Gross Income is on IRS Form 1040—line 11.
+              </p>
+            </div>
+            
+            <div>
+              <p class="font-medium mb-1">How much did Parent 1 earn from working in 2023?</p>
+              <div class="flex items-center">
+                <span class="text-gray-500 mr-1">$</span>
+                <input type="text" class="border border-gray-300 p-1 w-full" placeholder="Amount" />
+              </div>
+            </div>
+            
+            <div>
+              <p class="font-medium mb-1">How much did Parent 2 earn from working in 2023?</p>
+              <div class="flex items-center">
+                <span class="text-gray-500 mr-1">$</span>
+                <input type="text" class="border border-gray-300 p-1 w-full" placeholder="Amount" />
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Benefits Section -->
+        <div class="border border-purple-900 p-4 mb-4" id="benefits-section-3">
+          <h3 class="text-purple-900 font-bold mb-2">Benefits Information</h3>
+          <p class="mb-2">In 2021 or 2022, did anyone in your parents' household receive:</p>
+          <div class="space-y-2">
+            <label class="flex items-center space-x-2">
+              <input type="checkbox" class="form-checkbox" />
+              <span>Medicaid</span>
+            </label>
+            <label class="flex items-center space-x-2">
+              <input type="checkbox" class="form-checkbox" />
+              <span>Supplemental Security Income (SSI)</span>
+            </label>
+            <label class="flex items-center space-x-2">
+              <input type="checkbox" class="form-checkbox" />
+              <span>Supplemental Nutrition Assistance Program (SNAP)</span>
+            </label>
+            <label class="flex items-center space-x-2">
+              <input type="checkbox" class="form-checkbox" />
+              <span>Free or Reduced Price School Lunch</span>
+            </label>
+            <label class="flex items-center space-x-2">
+              <input type="checkbox" class="form-checkbox" />
+              <span>Temporary Assistance for Needy Families (TANF)</span>
+            </label>
+            <label class="flex items-center space-x-2">
+              <input type="checkbox" class="form-checkbox" />
+              <span>Special Supplemental Nutrition Program for Women, Infants, and Children (WIC)</span>
+            </label>
+          </div>
+        </div>
+        
+        <!-- Notes Section -->
+        <div class="border border-purple-900 p-4 mb-4" id="notes-section-3">
+          <h3 class="text-purple-900 font-bold mb-2">Notes:</h3>
+          <textarea
+            class="w-full h-32 p-2 border border-gray-300"
+            placeholder="Enter any additional notes about parent information here..."
+          ></textarea>
+        </div>
+        
+        <!-- Navigation Buttons -->
+        <div class="mt-8 flex justify-between" id="navigation-buttons-3">
+          <button id="page3-prev-button" class="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition">
+            Previous Step
+          </button>
+          <button id="page3-next-button" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
+            Next Step
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- =============== PAGE 4: REVIEW & SUBMIT =============== -->
+    <div id="page4" class="page">
+      <!-- Step Progress Bar -->
+      <div class="mb-8" id="progress-section-4">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-medium text-gray-700">
+            Step 4 of 4
+          </span>
+          <span class="text-sm text-gray-500">
+            100% Complete
+          </span>
+        </div>
+        
+        <div class="relative">
+          <div class="w-full h-2 bg-gray-200 rounded-full">
+            <div
+              class="h-2 bg-indigo-600 rounded-full transition-all duration-300"
+              style="width: 100%"
+            ></div>
+          </div>
+          
+          <div class="absolute top-4 left-0 w-full flex justify-between">
+            <div class="text-xs text-indigo-600">Student Information</div>
+            <div class="text-xs text-indigo-600">Dependency Status</div>
+            <div class="text-xs text-indigo-600">Parent Information</div>
+            <div class="text-xs text-indigo-600">Review & Submit</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Section 4 Header -->
+      <div class="bg-green-100 p-3 mb-4 border-l-4 border-green-500" id="section-header-4">
+        <h2 class="text-xl font-bold text-green-800">
+          SECTION 4 - REVIEW & SUBMIT
+        </h2>
+        <p class="text-green-700">
+          Please review your application before submitting. Make sure all information is accurate.
+        </p>
+      </div>
+
+      <!-- Validation Summary -->
+      <div class="mb-6" id="validation-section-4">
+        <div class="success-banner" id="success-banner">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <div>
+            <p class="font-medium">Validation passed!</p>
+            <p class="text-sm">Your FAFSA application has no errors and is ready to submit.</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Main Content - Information Summary -->
+      <div class="max-w-4xl mx-auto" id="summary-sections-4">
+        <!-- Student Information Summary -->
+        <div class="summary-section" id="student-summary-4">
+          <div class="summary-header">
+            <span>Section 1: Student Information</span>
+            <button class="text-indigo-600 text-sm hover:text-indigo-800">Edit</button>
+          </div>
+          <div class="summary-content">
+            <div class="info-row">
+              <div class="info-label">Student Name:</div>
+              <div class="info-value">Jordan Rivers</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Social Security Number:</div>
+              <div class="info-value">XXX-XX-XXXX</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Citizenship Status:</div>
+              <div class="info-value">U.S. Citizen</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Marital Status:</div>
+              <div class="info-value">Single</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Parent 1 Education:</div>
+              <div class="info-value">College or beyond</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Parent 2 Education:</div>
+              <div class="info-value">High school</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Dependency Status Summary -->
+        <div class="summary-section" id="dependency-summary-4">
+          <div class="summary-header">
+            <span>Section 2: Dependency Status</span>
+            <button class="text-indigo-600 text-sm hover:text-indigo-800">Edit</button>
+          </div>
+          <div class="summary-content">
+            <div class="info-row">
+              <div class="info-label">Dependency Status:</div>
+              <div class="info-value">Dependent Student</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Born Before 2000:</div>
+              <div class="info-value">No</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Married:</div>
+              <div class="info-value">No</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Graduate Program:</div>
+              <div class="info-value">No</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Active Duty:</div>
+              <div class="info-value">No</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Veteran:</div>
+              <div class="info-value">No</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Parent Information Summary -->
+        <div class="summary-section" id="parent-summary-4">
+          <div class="summary-header">
+            <span>Section 3: Parent Information</span>
+            <button class="text-indigo-600 text-sm hover:text-indigo-800">Edit</button>
+          </div>
+          <div class="summary-content">
+            <div class="info-row">
+              <div class="info-label">Parent 1 Name:</div>
+              <div class="info-value">Michael Rivers</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Parent 1 SSN:</div>
+              <div class="info-value">XXX-XX-7890</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Parent 1 Date of Birth:</div>
+              <div class="info-value">05/15/1975</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Parent 2 Name:</div>
+              <div class="info-value">Sarah Rivers</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Parent 2 SSN:</div>
+              <div class="info-value">XXX-XX-4321</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Parent 2 Date of Birth:</div>
+              <div class="info-value">08/22/1978</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Adjusted Gross Income:</div>
+              <div class="info-value">$78,500</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Parent 1 Income from Working:</div>
+              <div class="info-value">$48,000</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Parent 2 Income from Working:</div>
+              <div class="info-value">$30,500</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Signature Section -->
+      <div class="mt-8 p-4 border border-gray-300 rounded-lg" id="signature-section-4">
+        <h3 class="font-bold text-lg mb-3">Signature</h3>
+        <p class="mb-4">By signing and submitting this application, you certify that:</p>
+        <ul class="list-disc pl-5 mb-4 space-y-1">
+          <li>All information is correct and complete to the best of your knowledge</li>
+          <li>You will use federal and/or state student financial aid only to pay for the cost of attending an institution of higher education</li>
+          <li>You are not in default on a federal student loan or have made satisfactory arrangements to repay it</li>
+          <li>You do not owe money back on a federal student grant or have made satisfactory arrangements to repay it</li>
+        </ul>
+        
+        <div class="mb-4">
+          <label class="block text-gray-700 font-medium mb-2">Student Signature (Electronic)</label>
+          <input type="text" class="w-full border border-gray-300 rounded p-2" placeholder="Type your full name to sign" />
+        </div>
+        
+        <div>
+          <label class="block text-gray-700 font-medium mb-2">Parent Signature (Electronic)</label>
+          <input type="text" class="w-full border border-gray-300 rounded p-2" placeholder="Type parent's full name to sign" />
+        </div>
+      </div>
+      
+      <!-- Submit Button -->
+      <div class="mt-8 flex justify-between" id="submit-section-4">
+        <button id="page4-prev-button" class="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition">
+          Previous Step
+        </button>
+        <button class="px-8 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition text-lg font-medium">
+          Submit FAFSA
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Page navigation variables
+      let currentPage = 1;
+      const totalPages = 4;
+      let currentTourStep = 0;
+      let tourData = [];
+      
+      // Initialize the page dots
+      const pageDots = document.querySelectorAll('.page-dot');
+      pageDots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          const pageNum = parseInt(dot.getAttribute('data-page'));
+          navigateToPage(pageNum);
+        });
+      });
+      
+      // Button event listeners for page navigation
+      document.getElementById('page1-next-button').addEventListener('click', () => {
+        // Go to page 2 and reset to first tour step
+        navigateToPage(2);
+        currentTourStep = 0;
+        showTourStep(currentTourStep);
+      });
+      document.getElementById('page2-prev-button').addEventListener('click', () => {
+        // Go to page 1 and reset to first tour step
+        navigateToPage(1);
+        currentTourStep = 0;
+        showTourStep(currentTourStep);
+      });
+      document.getElementById('page2-next-button').addEventListener('click', () => {
+        // Go to page 3 and reset to first tour step
+        navigateToPage(3);
+        currentTourStep = 0;
+        showTourStep(currentTourStep);
+      });
+      document.getElementById('page3-prev-button').addEventListener('click', () => {
+        // Go to page 2 and reset to first tour step
+        navigateToPage(2);
+        currentTourStep = 0;
+        showTourStep(currentTourStep);
+      });
+      document.getElementById('page3-next-button').addEventListener('click', () => {
+        // Go to page 4 and reset to first tour step
+        navigateToPage(4);
+        currentTourStep = 0;
+        showTourStep(currentTourStep);
+      });
+      document.getElementById('page4-prev-button').addEventListener('click', () => {
+        // Go to page 3 and reset to first tour step
+        navigateToPage(3);
+        currentTourStep = 0;
+        showTourStep(currentTourStep);
+      });
+      
+      // Function to navigate between pages
+      function navigateToPage(pageNum) {
+        if (pageNum < 1 || pageNum > totalPages) return;
+        
+        console.log(`Navigating to page ${pageNum}`);
+        
+        // Hide current page
+        document.querySelector(`.page.active`).classList.remove('active');
+        
+        // Show new page
+        document.getElementById(`page${pageNum}`).classList.add('active');
+        
+        // Update page dots
+        pageDots.forEach(dot => {
+          const dotPage = parseInt(dot.getAttribute('data-page'));
+          if (dotPage === pageNum) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+        
+        // Update current page
+        currentPage = pageNum;
+        
+        // Reset tour when changing pages
+        resetTour();
+        initializeTourForCurrentPage();
+      }
+      
+      // Tour steps data for each page
+      const page1TourSteps = [
+        {
+          element: '#progress-section-1',
+          title: 'Step Progress Bar',
+          description: 'This progress bar shows you where you are in the FAFSA completion process. You\'re currently on Step 1 of 4: Student Information.',
+          position: ''
+        },
+        {
+          element: '#scenario-section-1',
+          title: 'Practice Scenario',
+          description: 'This section provides the information you\'ll use to complete the FAFSA form. For this exercise, you\'ll use the details of Jordan Rivers.',
+          position: ''
+        },
+        {
+          element: '#section-header-1',
+          title: 'Section Header',
+          description: 'This header indicates you\'re in Section 1, which focuses on collecting the student\'s personal information.',
+          position: ''
+        },
+        {
+          element: '#student-info-section-1',
+          title: 'Student Information',
+          description: 'Here you\'ll enter the student\'s name and Social Security Number. For this scenario, enter "Rivers" as the last name and "Jordan" as the first name.',
+          position: ''
+        },
+        {
+          element: '#citizenship-section-1',
+          title: 'Citizenship Status',
+          description: 'In this section, you\'ll select the student\'s citizenship status. For Jordan Rivers, you should select "U.S. citizen (U.S. national)".',
+          position: ''
+        },
+        {
+          element: '#marital-section-1',
+          title: 'Marital Status',
+          description: 'This part collects information about the student\'s marital status. For Jordan Rivers, you would check "Single".',
+          position: ''
+        },
+        {
+          element: '#parent-education-section-1',
+          title: 'Parent Education',
+          description: 'The final part of Section 1 asks about the education level of the student\'s parents. For Jordan Rivers, Parent 1 completed "College or beyond" and Parent 2 completed "High school".',
+          position: ''
+        }
+      ];
+      
+      const page2TourSteps = [
+        {
+          element: '#progress-section-2',
+          title: 'Progress to Step 2',
+          description: 'You\'ve now progressed to Step 2 of 4: Dependency Status. This section determines whether you\'re considered a dependent or independent student for financial aid purposes.',
+          position: ''
+        },
+        {
+          element: '#section-header-2',
+          title: 'Dependency Status Section',
+          description: 'This section determines whether you need to provide parental information on your FAFSA. Your answers to these questions establish if you\'re considered a "dependent" or "independent" student.',
+          position: ''
+        },
+        {
+          element: '#introduction-text-2',
+          title: 'Important Instructions',
+          description: 'These instructions explain that if ANY checkbox applies to your situation, you won\'t need to provide parental information. If NONE apply, you\'ll need to provide parental details in the next section.',
+          position: ''
+        },
+        {
+          element: '#dependency-checkboxes-2',
+          title: 'Dependency Criteria',
+          description: 'These checkboxes represent different criteria that might qualify you as an independent student. For Jordan Rivers in our practice scenario, we don\'t need to check any boxes since none of these circumstances apply.',
+          position: ''
+        },
+        {
+          element: '#notes-section-2',
+          title: 'Notes Section',
+          description: 'This area allows you to add any relevant notes about your dependency status. You can use this to explain special circumstances or provide additional context if needed.',
+          position: ''
+        }
+      ];
+      
+      const page3TourSteps = [
+        {
+          element: '#progress-section-3',
+          title: 'Progress to Step 3',
+          description: 'You\'ve now progressed to Step 3 of 4: Parent Information. This section collects financial and personal information about the student\'s parents.',
+          position: ''
+        },
+        {
+          element: '#scenario-section-3',
+          title: 'Scenario Details',
+          description: 'For our practice scenario, you\'ll see Jordan Rivers\' parents\' information here. This provides the key details you\'ll need to complete this section of the form.',
+          position: ''
+        },
+        {
+          element: '#section-header-3',
+          title: 'Parent Information Section',
+          description: 'This section collects information about your parents\' personal details, income, and financial benefits that help determine your eligibility for various types of aid.',
+          position: ''
+        },
+        {
+          element: '#parent-definition-3',
+          title: 'Parent Definition',
+          description: 'This important explanation helps you understand who counts as a "parent" for FAFSA purposes. Different family situations require different approaches to reporting parent information.',
+          position: ''
+        },
+        {
+          element: '#parent-info-section-3',
+          title: 'Parent Personal Information',
+          description: 'Here you\'ll provide basic information about both parents, including names, Social Security Numbers, and dates of birth. The dislocated worker status can impact financial aid eligibility.',
+          position: ''
+        },
+        {
+          element: '#tax-section-3',
+          title: 'Tax Return Information',
+          description: 'This section asks about your parents\' tax filing status. The IRS Data Retrieval Tool mentioned here allows direct import of tax information, reducing errors and simplifying the process.',
+          position: ''
+        },
+        {
+          element: '#income-section-3',
+          title: 'Income Questions',
+          description: 'These fields collect information about your parents\' income. For Jordan Rivers\' scenario, you would enter $78,500 for adjusted gross income, $48,000 for Parent 1\'s income, and $30,500 for Parent 2\'s income.',
+          position: ''
+        },
+        {
+          element: '#benefits-section-3',
+          title: 'Benefits Information',
+          description: 'This section asks about government benefits your parents may have received. Some benefits automatically qualify students for maximum financial aid, so answering accurately is important.',
+          position: ''
+        }
+      ];
+      
+      const page4TourSteps = [
+        {
+          element: '#progress-section-4',
+          title: 'Completed All Steps',
+          description: 'Congratulations! You\'ve completed all 4 steps of the FAFSA form. Now it\'s time to review the information and submit your application.',
+          position: ''
+        },
+        {
+          element: '#section-header-4',
+          title: 'Review & Submit Section',
+          description: 'This final section allows you to review all the information you\'ve entered before submitting your application. Take time to carefully check that everything is correct.',
+          position: ''
+        },
+        {
+          element: '#validation-section-4',
+          title: 'Validation Results',
+          description: 'This banner indicates whether there are any errors or missing information in your application. A green success banner means your form is ready to submit.',
+          position: ''
+        },
+        {
+          element: '#summary-sections-4',
+          title: 'Information Summary',
+          description: 'This section shows all the information you\'ve entered throughout the application. You can click "Edit" on any section to go back and make changes if needed.',
+          position: ''
+        },
+        {
+          element: '#signature-section-4',
+          title: 'Electronic Signature',
+          description: 'Both you and your parent need to sign the FAFSA electronically by typing your full legal names. This serves as your legal signature for the application.',
+          position: ''
+        },
+        {
+          element: '#submit-section-4',
+          title: 'Submit Button',
+          description: 'After reviewing your information and providing electronic signatures, click this button to submit your FAFSA application. In a real application, this would transmit your data to Federal Student Aid.',
+          position: ''
+        }
+      ];
+      
+      // Function to initialize tour based on current page
+      function initializeTourForCurrentPage() {
+        // Set the appropriate tour steps based on current page
+        switch(currentPage) {
+          case 1:
+            tourData = page1TourSteps;
+            break;
+          case 2:
+            tourData = page2TourSteps;
+            break;
+          case 3:
+            tourData = page3TourSteps;
+            break;
+          case 4:
+            tourData = page4TourSteps;
+            break;
+          default:
+            tourData = page1TourSteps;
+        }
+        
+        // Reset tour step and update the counter
+        currentTourStep = 0;
+        document.getElementById('tour-total-steps').textContent = tourData.length;
+        
+        // Initialize the tour
+        showTourStep(currentTourStep);
+        
+        // Set up event listeners for tour controls
+        const prevButton = document.getElementById('prev-button');
+        const nextButton = document.getElementById('next-button');
+        
+        prevButton.removeEventListener('click', prevTourStep);
+        nextButton.removeEventListener('click', nextTourStep);
+        
+        prevButton.addEventListener('click', prevTourStep);
+        nextButton.addEventListener('click', nextTourStep);
+      }
+      
+      // Function to show a tour step
+      function showTourStep(stepIndex) {
+        // Remove existing tooltips and highlights
+        const existingTooltips = document.querySelectorAll('.tour-tooltip');
+        existingTooltips.forEach(tooltip => tooltip.remove());
+        
+        const existingHighlights = document.querySelectorAll('.tour-highlight');
+        existingHighlights.forEach(highlight => {
+          highlight.classList.remove('tour-highlight', 'pulse');
+        });
+        
+        // Get the step data
+        const step = tourData[stepIndex];
+        if (!step) return;
+        
+        // Get the target element
+        const targetElement = document.querySelector(step.element);
+        if (!targetElement) return;
+        
+        // Add highlight to target element
+        targetElement.classList.add('tour-highlight', 'pulse');
+        
+        // Create tooltip
+        const tooltip = document.createElement('div');
+        tooltip.className = `tour-tooltip tour-fade ${step.position}`;
+        
+        // Position the tooltip
+        const rect = targetElement.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (step.position === 'top') {
+          tooltip.classList.add('top');
+          tooltip.style.top = `${rect.top + scrollTop - tooltip.offsetHeight - 20}px`;
+          tooltip.style.left = `${rect.left}px`;
+        } else if (step.position === 'top-right') {
+          tooltip.classList.add('top', 'right');
+          tooltip.style.top = `${rect.top + scrollTop - tooltip.offsetHeight - 20}px`;
+          tooltip.style.left = `${rect.left - 200}px`;
+        } else {
+          // Default: position below the element (bottom)
+          tooltip.style.top = `${rect.bottom + scrollTop + 20}px`;
+          tooltip.style.left = `${rect.left}px`;
+        }
+        
+        // Add tooltip content
+        tooltip.innerHTML = `
+          <h3 class="font-bold mb-1">${step.title}</h3>
+          <p>${step.description}</p>
+        `;
+        
+        // Add tooltip to the DOM
+        document.body.appendChild(tooltip);
+        
+        // Update step counter
+        document.getElementById('tour-step-counter').textContent = stepIndex + 1;
+        
+        // Update button states
+        document.getElementById('prev-button').disabled = stepIndex === 0;
+        document.getElementById('next-button').disabled = false; // Never disable the next button
+        
+        // Auto-advance to next page if at last step
+        if (stepIndex === tourData.length - 1 && currentPage < totalPages) {
+          // Add a special class to indicate we're at the end of this page's tour
+          tooltip.classList.add('last-step');
+          
+          // Add a "Continue to Next Page" message to the tooltip
+          const continueMsg = document.createElement('p');
+          continueMsg.className = 'text-white mt-2 font-bold';
+          continueMsg.textContent = 'Click Next to continue to the next page →';
+          tooltip.appendChild(continueMsg);
+        }
+        
+        // Scroll the element into view if needed
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+      }
+      
+      // Function to go to the previous tour step
+      function prevTourStep() {
+        if (currentTourStep > 0) {
+          currentTourStep--;
+          showTourStep(currentTourStep);
+        }
+      }
+      
+      // Function to go to the next tour step
+      function nextTourStep() {
+        if (currentTourStep < tourData.length - 1) {
+          // Not at the last step yet, just advance to next step
+          currentTourStep++;
+          showTourStep(currentTourStep);
+        } else if (currentPage < totalPages) {
+          // At the last step of current page and there are more pages
+          
+          // Explicitly click the "Next Step" button in the FAFSA form UI
+          const nextPageButton = document.getElementById(`page${currentPage}-next-button`);
+          if (nextPageButton) {
+            console.log(`Clicking the Next Step button for page ${currentPage}`);
+            nextPageButton.click(); // This will trigger the page navigation 
+          } else {
+            // Fallback in case button isn't found
+            console.log(`Next button not found for page ${currentPage}, using fallback navigation`);
+            navigateToPage(currentPage + 1);
+            currentTourStep = 0;
+            showTourStep(currentTourStep);
+          }
+        }
+      }
+      
+      // Function to reset the tour
+      function resetTour() {
+        // Remove existing tooltips and highlights
+        const existingTooltips = document.querySelectorAll('.tour-tooltip');
+        existingTooltips.forEach(tooltip => tooltip.remove());
+        
+        const existingHighlights = document.querySelectorAll('.tour-highlight');
+        existingHighlights.forEach(highlight => {
+          highlight.classList.remove('tour-highlight', 'pulse');
+        });
+      }
+      
+      // Close tour button event
+      document.getElementById('close-button').addEventListener('click', () => {
+        // Remove all tooltips and highlights
+        const tooltips = document.querySelectorAll('.tour-tooltip');
+        tooltips.forEach(tooltip => tooltip.remove());
+        
+        const highlights = document.querySelectorAll('.tour-highlight');
+        highlights.forEach(highlight => {
+          highlight.classList.remove('tour-highlight', 'pulse');
+        });
+        
+        // Hide tour controls
+        document.querySelector('.tour-controls').style.display = 'none';
+        document.querySelector('.tour-progress').style.display = 'none';
+      });
+      
+      // Initialize the tour with page 1
+      initializeTourForCurrentPage();
+    });
+  </script>
+</body>
+</html>

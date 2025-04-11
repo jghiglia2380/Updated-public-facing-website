@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PFL Academy - Curriculum Standards Reference</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 8.5in;
+      margin: 0 auto;
+      padding: 0.5in;
+    }
+    
+    .header {
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid #4F46E5;
+      padding-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-weight: 700;
+      font-size: 24px;
+      color: #4F46E5;
+    }
+    
+    h1 {
+      color: #4F46E5;
+      font-size: 28px;
+      margin-bottom: 1.5rem;
+    }
+    
+    h2 {
+      color: #4338CA;
+      font-size: 20px;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #E5E7EB;
+      padding-bottom: 0.5rem;
+    }
+    
+    h3 {
+      color: #6366F1;
+      font-size: 16px;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .section {
+      margin-bottom: 2rem;
+    }
+    
+    .callout {
+      background-color: #EFF6FF;
+      border-left: 4px solid #3B82F6;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 4px;
+    }
+    
+    .standard-box {
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+    
+    .standard-header {
+      background-color: #EFF6FF;
+      padding: 1rem;
+      border-bottom: 1px solid #E5E7EB;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .standard-icon {
+      background-color: #4F46E5;
+      color: white;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      margin-right: 0.75rem;
+    }
+    
+    .standard-title {
+      font-weight: 600;
+      color: #4F46E5;
+      flex: 1;
+    }
+    
+    .standard-content {
+      padding: 1rem;
+    }
+    
+    .chapter-list {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    
+    .chapter-item {
+      padding: 0.75rem;
+      border-bottom: 1px solid #E5E7EB;
+    }
+    
+    .chapter-item:last-child {
+      border-bottom: none;
+    }
+    
+    .chapter-title {
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+    
+    .chapter-desc {
+      font-size: 14px;
+      color: #6B7280;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+    
+    table, th, td {
+      border: 1px solid #E5E7EB;
+    }
+    
+    th {
+      background-color: #F3F4F6;
+      padding: 0.75rem;
+      text-align: left;
+      font-weight: 600;
+    }
+    
+    td {
+      padding: 0.75rem;
+    }
+    
+    ul, ol {
+      padding-left: 1.5rem;
+    }
+    
+    li {
+      margin-bottom: 0.5rem;
+    }
+    
+    footer {
+      margin-top: 3rem;
+      padding-top: 1rem;
+      border-top: 2px solid #4F46E5;
+      font-size: 12px;
+      color: #6B7280;
+      text-align: center;
+    }
+    
+    .alignments {
+      font-size: 14px;
+      color: #6B7280;
+      margin-top: 0.5rem;
+    }
+    
+    .skill-builder {
+      background-color: #F3E8FF;
+      padding: 0.5rem;
+      border-radius: 4px;
+      font-size: 14px;
+      display: inline-block;
+      margin-top: 0.5rem;
+      color: #7C3AED;
+    }
+    
+    .standard-nav {
+      position: sticky;
+      top: 0;
+      background-color: white;
+      padding: 1rem 0;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid #E5E7EB;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    
+    .standard-nav-btn {
+      background-color: #F3F4F6;
+      border: 1px solid #E5E7EB;
+      padding: 0.5rem 0.75rem;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      color: #4B5563;
+    }
+    
+    .standard-nav-btn:hover {
+      background-color: #EFF6FF;
+      color: #4F46E5;
+    }
+    
+    @media print {
+      body {
+        padding: 0;
+      }
+      
+      .page-break {
+        page-break-after: always;
+      }
+      
+      .standard-nav {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">PFL Academy</div>
+    <div>Curriculum Standards Reference</div>
+  </div>
+  
+  <div class="section">
+    <h1>PFL Academy Curriculum Standards Reference</h1>
+    <p>This guide provides a comprehensive overview of all 15 financial literacy standards covered in the PFL Academy curriculum, including chapter descriptions, learning objectives, and skill builders. Use this reference to plan your financial literacy curriculum and identify which content best aligns with your educational goals.</p>
+    
+    <div class="callout">
+      <strong>Complete Curriculum Coverage:</strong> PFL Academy's curriculum aligns with standards from the Council for Economic Education (CEE), Jump$tart Coalition for Personal Financial Literacy, and state financial literacy requirements. Each standard includes multiple chapters with both Day 1 content exploration and Day 2 learning lab activities.
+    </div>
+  </div>
+  
+  <div class="standard-nav">
+    <button class="standard-nav-btn" onclick="document.getElementById('standard1').scrollIntoView({behavior: 'smooth'})">Standard 1</button>
+    <button class="standard-nav-btn" onclick="document.getElementById('standard2').scrollIntoView({behavior: 'smooth'})">Standard 2</button>
+    <button class="standard-nav-btn" onclick="document.getElementById('standard3').scrollIntoView({behavior: 'smooth'})">Standard 3</button>
+    <button class="standard-nav-btn" onclick="document.getElementById('standard4').scrollIntoView({behavior: 'smooth'})">Standard 4</button>
+    <button class="standard-nav-btn" onclick="document.getElementById('standard5').scrollIntoView({behavior: 'smooth'})">Standard 5</button>
+    <button class="standard-nav-btn" onclick="document.getElementById('standard6').scrollIntoView({behavior: 'smooth'})">Standard 6</button>
+    <button class="standard-nav-btn" onclick="document.getElementById('standard7').scrollIntoView({behavior: 'smooth'})">Standard 7</button>
+    <button class="standard-nav-btn" onclick="document.getElementById('standard8').scrollIntoView({behavior: 'smooth'})">Standard 8</button>
+    <button class="standard-nav-btn" onclick="document.getElementById('standard9').scrollIntoView({behavior: 'smooth'})">Standard 9</button>
+    <button class="standard-nav-btn" onclick="document.getElementById('standard10').scrollIntoView({behavior: 'smooth'})">Standard 10</button>
+    <button class="standard-nav-btn" onclick="document.getElementById('standard11').scrollIntoView({behavior: 'smooth'})">Standard 11</button>
+    <button class="standard-nav-btn" onclick="document.getElementById('standard12').scrollIntoView({behavior: 'smooth'})">Standard 12</button>
+    <button class="standard-nav-btn" onclick="document.getElementById('standard13').scrollIntoView({behavior: 'smooth'})">Standard 13</button>
+    <button class="standard-nav-btn" onclick="document.getElementById('standard14').scrollIntoView({behavior: 'smooth'})">Standard 14</button>
+    <button class="standard-nav-btn" onclick="document.getElementById('standard15').scrollIntoView({behavior: 'smooth'})">Standard 15</button>
+  </div>
+  
+  <!-- Standard 1 -->
+  <div class="standard-box" id="standard1">
+    <div class="standard-header">
+      <div style="display: flex; align-items: center;">
+        <div class="standard-icon">1</div>
+        <div class="standard-title">Income & Careers</div>
+      </div>
+    </div>
+    <div class="standard-content">
+      <p>This standard explores the relationship between education, skills, career choices, and income potential. Students learn to evaluate career options, understand income sources, and develop strategies for financial success.</p>
+      
+      <div class="alignments">
+        <strong>Alignments:</strong> CEE Standard I, Jump$tart Income & Careers, NEFE Income
+      </div>
+      
+      <h3>Chapters in this Standard:</h3>
+      <ul class="chapter-list">
+        <li class="chapter-item">
+          <div class="chapter-title">1.1: Jobs vs. Careers</div>
+          <div class="chapter-desc">Distinguishes between jobs and careers, exploring how education and skills impact earning potential and career advancement.</div>
+          <div class="skill-builder">Career Path Planner</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">1.2: Paying for Post-Secondary Education</div>
+          <div class="chapter-desc">Examines options for financing education beyond high school, including scholarships, grants, loans, and work-study programs.</div>
+          <div class="skill-builder">FAFSA Navigator</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">1.3: Income and Taxes</div>
+          <div class="chapter-desc">Explores different types of income, tax structures, and how to understand paycheck withholdings and deductions.</div>
+          <div class="skill-builder">W-4 Form Guide</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">1.4: Financial Goal Setting</div>
+          <div class="chapter-desc">Teaches strategies for setting SMART financial goals and developing action plans to achieve them.</div>
+          <div class="skill-builder">Goal Setting Workshop</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">1.5: Managing Your Income Effectively</div>
+          <div class="chapter-desc">Covers budgeting, cash flow management, and strategies for making the most of your income.</div>
+          <div class="skill-builder">Budget Builder</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <!-- Standard 2 -->
+  <div class="standard-box" id="standard2">
+    <div class="standard-header">
+      <div style="display: flex; align-items: center;">
+        <div class="standard-icon">2</div>
+        <div class="standard-title">Taxes</div>
+      </div>
+    </div>
+    <div class="standard-content">
+      <p>This standard examines how taxes function in our economy, the different types of taxes individuals pay, and strategies for tax planning and compliance. Students gain practical knowledge about filing taxes and maximizing tax benefits.</p>
+      
+      <div class="alignments">
+        <strong>Alignments:</strong> CEE Standard II, Jump$tart Financial Decision Making, NEFE Planning & Money Management
+      </div>
+      
+      <h3>Chapters in this Standard:</h3>
+      <ul class="chapter-list">
+        <li class="chapter-item">
+          <div class="chapter-title">2.1: Understanding Federal and State Taxes</div>
+          <div class="chapter-desc">Explores the structure and purpose of federal and state tax systems, including income, sales, and property taxes.</div>
+          <div class="skill-builder">Tax System Analysis</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">2.2: Understanding Tax Brackets and Tax Rates</div>
+          <div class="chapter-desc">Explains progressive taxation, marginal tax rates, and how to calculate your effective tax rate.</div>
+          <div class="skill-builder">Tax Bracket Calculator</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">2.3: Understanding Tax Filing Requirements</div>
+          <div class="chapter-desc">Covers who needs to file taxes, filing statuses, deadlines, and the consequences of not filing.</div>
+          <div class="skill-builder">Tax Filing Simulator</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">2.4: Understanding Tax Deductions and Credits</div>
+          <div class="chapter-desc">Explains the difference between deductions and credits and explores common tax benefits available to taxpayers.</div>
+          <div class="skill-builder">Deduction & Credit Optimizer</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">2.5: Tax Planning and Compliance</div>
+          <div class="chapter-desc">Provides strategies for legal tax planning, proper record-keeping, and responding to tax notices.</div>
+          <div class="skill-builder">Tax Planning Workshop</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <!-- Page Break -->
+  <div class="page-break"></div>
+  
+  <!-- Standard 3 -->
+  <div class="standard-box" id="standard3">
+    <div class="standard-header">
+      <div style="display: flex; align-items: center;">
+        <div class="standard-icon">3</div>
+        <div class="standard-title">Financial Services</div>
+      </div>
+    </div>
+    <div class="standard-content">
+      <p>This standard introduces students to the financial services industry, including different types of financial institutions, products, and services. Students learn how to evaluate and select appropriate financial service providers for their needs.</p>
+      
+      <div class="alignments">
+        <strong>Alignments:</strong> CEE Standard III, Jump$tart Financial Decision Making, NEFE Financial System
+      </div>
+      
+      <h3>Chapters in this Standard:</h3>
+      <ul class="chapter-list">
+        <li class="chapter-item">
+          <div class="chapter-title">3.1: Understanding Different Types of Financial Service Providers</div>
+          <div class="chapter-desc">Compares banks, credit unions, online banks, and other financial service providers and their offerings.</div>
+          <div class="skill-builder">Financial Institution Comparison</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">3.2: Choosing and Evaluating Financial Service Providers</div>
+          <div class="chapter-desc">Provides criteria for selecting financial institutions and evaluating their services, fees, and accessibility.</div>
+          <div class="skill-builder">Bank Account Opening Simulator</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <!-- Standard 4 -->
+  <div class="standard-box" id="standard4">
+    <div class="standard-header">
+      <div style="display: flex; align-items: center;">
+        <div class="standard-icon">4</div>
+        <div class="standard-title">Banking Tools</div>
+      </div>
+    </div>
+    <div class="standard-content">
+      <p>This standard focuses on practical banking skills and tools, including account management, electronic banking, and financial record-keeping. Students develop the ability to effectively use banking tools for everyday financial management.</p>
+      
+      <div class="alignments">
+        <strong>Alignments:</strong> CEE Standard IV, Jump$tart Financial Decision Making, NEFE Planning & Money Management
+      </div>
+      
+      <h3>Chapters in this Standard:</h3>
+      <ul class="chapter-list">
+        <li class="chapter-item">
+          <div class="chapter-title">4.1: Understanding and Using Banking Tools</div>
+          <div class="chapter-desc">Explores checking accounts, savings accounts, online banking, mobile apps, and other banking tools.</div>
+          <div class="skill-builder">Banking Tools Simulator</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <!-- Standards continue with similar structure for 5-15 -->
+  <!-- For brevity, I'll include a couple more and then summarize the rest -->
+  
+  <!-- Standard 5 -->
+  <div class="standard-box" id="standard5">
+    <div class="standard-header">
+      <div style="display: flex; align-items: center;">
+        <div class="standard-icon">5</div>
+        <div class="standard-title">Saving & Investing</div>
+      </div>
+    </div>
+    <div class="standard-content">
+      <p>This standard explores strategies for saving and investing money to achieve short and long-term financial goals. Students learn about different investment vehicles, risk assessment, and the power of compound interest.</p>
+      
+      <div class="alignments">
+        <strong>Alignments:</strong> CEE Standard V, Jump$tart Saving & Investing, NEFE Saving & Investing
+      </div>
+      
+      <h3>Chapters in this Standard:</h3>
+      <ul class="chapter-list">
+        <li class="chapter-item">
+          <div class="chapter-title">5.1: Saving and Investing</div>
+          <div class="chapter-desc">Introduces the concepts of saving versus investing and explores different options for both.</div>
+          <div class="skill-builder">Investment Strategy Builder</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">5.2: Understanding The Power of Compound Interest and the Rule of 72</div>
+          <div class="chapter-desc">Demonstrates how compound interest and time affect investment growth and wealth accumulation.</div>
+          <div class="skill-builder">Compound Interest Calculator</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">5.3: Evaluating Saving and Investment Strategies</div>
+          <div class="chapter-desc">Provides frameworks for evaluating different saving and investment strategies based on goals and risk tolerance.</div>
+          <div class="skill-builder">Investment Portfolio Simulator</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">5.4: Time is Money</div>
+          <div class="chapter-desc">Explores the concept of opportunity cost and the time value of money in financial decision-making.</div>
+          <div class="skill-builder">Time Value Calculator</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">5.5: Understanding Monetary Risk in Saving and Investing</div>
+          <div class="chapter-desc">Examines different types of financial risk and strategies for risk management in investing.</div>
+          <div class="skill-builder">Risk Assessment Tool</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <!-- Page Break -->
+  <div class="page-break"></div>
+
+  <!-- Standard 6 -->
+  <div class="standard-box" id="standard6">
+    <div class="standard-header">
+      <div style="display: flex; align-items: center;">
+        <div class="standard-icon">6</div>
+        <div class="standard-title">Retirement Planning</div>
+      </div>
+    </div>
+    <div class="standard-content">
+      <p>This standard focuses on long-term financial planning for retirement. Students learn about the various retirement savings vehicles, estimating retirement needs, and creating a sustainable retirement plan.</p>
+      
+      <div class="alignments">
+        <strong>Alignments:</strong> CEE Standard VI, Jump$tart Saving & Investing, NEFE Planning for the Future
+      </div>
+      
+      <h3>Chapters in this Standard:</h3>
+      <ul class="chapter-list">
+        <li class="chapter-item">
+          <div class="chapter-title">6.1: Planning for Retirement</div>
+          <div class="chapter-desc">Introduces retirement planning concepts, timeline considerations, and goal-setting for different life stages.</div>
+          <div class="skill-builder">Retirement Calculator</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">6.2: Longevity and Retirement Planning</div>
+          <div class="chapter-desc">Explores how increasing life expectancy impacts retirement planning and strategies for ensuring financial security.</div>
+          <div class="skill-builder">Longevity Risk Analyzer</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Page Break -->
+  <div class="page-break"></div>
+
+  <!-- Standard 7 -->
+  <div class="standard-box" id="standard7">
+    <div class="standard-header">
+      <div style="display: flex; align-items: center;">
+        <div class="standard-icon">7</div>
+        <div class="standard-title">Borrowing</div>
+      </div>
+    </div>
+    <div class="standard-content">
+      <p>This standard examines the concept of borrowing money, different loan types, and responsible debt management. Students learn how to evaluate loan options, understand interest calculations, and develop effective repayment strategies.</p>
+      
+      <div class="alignments">
+        <strong>Alignments:</strong> CEE Standard VII, Jump$tart Credit & Debt, NEFE Credit & Debt
+      </div>
+      
+      <h3>Chapters in this Standard:</h3>
+      <ul class="chapter-list">
+        <li class="chapter-item">
+          <div class="chapter-title">7.1: Understanding the Cost of Borrowing</div>
+          <div class="chapter-desc">Explains interest rates, annual percentage rate (APR), loan terms, and the true cost of borrowing money.</div>
+          <div class="skill-builder">Loan Analyzer</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">7.2: Choosing the Right Source of Credit</div>
+          <div class="chapter-desc">Compares different lending sources including banks, credit unions, online lenders, and peer-to-peer lending.</div>
+          <div class="skill-builder">Loan Comparison Tool</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">7.3: Understanding Credit Score</div>
+          <div class="chapter-desc">Explores what makes up a credit score, how scores impact borrowing, and strategies for building good credit.</div>
+          <div class="skill-builder">Credit Score Simulator</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">7.4: Consumer Credit Legislation</div>
+          <div class="chapter-desc">Covers key laws protecting consumer rights in credit transactions and borrowing situations.</div>
+          <div class="skill-builder">Consumer Rights Navigator</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">7.5: Understanding Student Loans</div>
+          <div class="chapter-desc">Provides in-depth information on federal and private student loans, repayment options, and loan forgiveness programs.</div>
+          <div class="skill-builder">Student Loan Repayment Planner</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Standard 8 -->
+  <div class="standard-box" id="standard8">
+    <div class="standard-header">
+      <div style="display: flex; align-items: center;">
+        <div class="standard-icon">8</div>
+        <div class="standard-title">Credit & Debit Cards</div>
+      </div>
+    </div>
+    <div class="standard-content">
+      <p>This standard focuses on the responsible use of credit and debit cards, including features, benefits, risks, and security considerations. Students learn to make informed decisions about card usage and online transactions.</p>
+      
+      <div class="alignments">
+        <strong>Alignments:</strong> CEE Standard VIII, Jump$tart Credit & Debt, NEFE Financial System
+      </div>
+      
+      <h3>Chapters in this Standard:</h3>
+      <ul class="chapter-list">
+        <li class="chapter-item">
+          <div class="chapter-title">8.1: Credit Card Use and Management</div>
+          <div class="chapter-desc">Explores credit card features, billing cycles, minimum payments, fees, and strategies for responsible credit card use.</div>
+          <div class="skill-builder">Credit Card Management Simulator</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">8.2: Online Shopping</div>
+          <div class="chapter-desc">Covers secure online shopping practices, evaluating online retailers, and protecting personal and financial information.</div>
+          <div class="skill-builder">Online Shopping Simulator</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Page Break -->
+  <div class="page-break"></div>
+
+  <!-- Standard 9 -->
+  <div class="standard-box" id="standard9">
+    <div class="standard-header">
+      <div style="display: flex; align-items: center;">
+        <div class="standard-icon">9</div>
+        <div class="standard-title">Consumer Protection</div>
+      </div>
+    </div>
+    <div class="standard-content">
+      <p>This standard explores strategies for protecting yourself as a consumer from fraud, scams, and identity theft. Students learn about consumer rights, identifying fraudulent schemes, and steps to take if victimized.</p>
+      
+      <div class="alignments">
+        <strong>Alignments:</strong> CEE Standard IX, Jump$tart Financial Decision Making, NEFE Risk Management
+      </div>
+      
+      <h3>Chapters in this Standard:</h3>
+      <ul class="chapter-list">
+        <li class="chapter-item">
+          <div class="chapter-title">9.1: Protecting Yourself from Consumer Fraud</div>
+          <div class="chapter-desc">Identifies common types of consumer fraud, red flags of scams, and strategies for protecting yourself from fraudulent schemes.</div>
+          <div class="skill-builder">Fraud Detection Exercise</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">9.2: Identity Theft Prevention and Recovery</div>
+          <div class="chapter-desc">Covers strategies for preventing identity theft, monitoring credit reports, and steps to take if your identity is stolen.</div>
+          <div class="skill-builder">Identity Protection Planner</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Standard 10 -->
+  <div class="standard-box" id="standard10">
+    <div class="standard-header">
+      <div style="display: flex; align-items: center;">
+        <div class="standard-icon">10</div>
+        <div class="standard-title">Housing Decisions</div>
+      </div>
+    </div>
+    <div class="standard-content">
+      <p>This standard examines the financial aspects of housing decisions, including the rent vs. buy decision, mortgage options, and housing costs. Students learn to evaluate housing choices based on budget, lifestyle, and financial goals.</p>
+      
+      <div class="alignments">
+        <strong>Alignments:</strong> CEE Standard X, Jump$tart Financial Decision Making, NEFE Planning & Money Management
+      </div>
+      
+      <h3>Chapters in this Standard:</h3>
+      <ul class="chapter-list">
+        <li class="chapter-item">
+          <div class="chapter-title">10.1: Renting vs. Owning - Making Informed Housing Decisions</div>
+          <div class="chapter-desc">Compares the financial implications of renting versus buying, examining advantages and disadvantages of each option.</div>
+          <div class="skill-builder">Rent vs. Buy Calculator</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">10.2: Understanding the Cost and Responsibilities of Renting</div>
+          <div class="chapter-desc">Covers lease agreements, security deposits, tenant rights and responsibilities, and budgeting for rental costs.</div>
+          <div class="skill-builder">Rental Budget Planner</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">10.3: Understanding Home Buying</div>
+          <div class="chapter-desc">Explains the home buying process, mortgage types, down payments, closing costs, and ongoing homeownership expenses.</div>
+          <div class="skill-builder">Mortgage Estimator</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Page Break -->
+  <div class="page-break"></div>
+
+  <!-- Standard 11 -->
+  <div class="standard-box" id="standard11">
+    <div class="standard-header">
+      <div style="display: flex; align-items: center;">
+        <div class="standard-icon">11</div>
+        <div class="standard-title">Risk Management</div>
+      </div>
+    </div>
+    <div class="standard-content">
+      <p>This standard focuses on identifying and managing various types of risk through insurance and other protection strategies. Students learn about different insurance products and how to assess their insurance needs.</p>
+      
+      <div class="alignments">
+        <strong>Alignments:</strong> CEE Standard XI, Jump$tart Risk Management & Insurance, NEFE Risk Management
+      </div>
+      
+      <h3>Chapters in this Standard:</h3>
+      <ul class="chapter-list">
+        <li class="chapter-item">
+          <div class="chapter-title">11.1: Understanding and Managing Risk</div>
+          <div class="chapter-desc">Introduces types of financial risk, risk assessment, and strategies for managing different kinds of risk.</div>
+          <div class="skill-builder">Risk Assessment Tool</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">11.2: Insurance as a Risk Management Tool</div>
+          <div class="chapter-desc">Explores different types of insurance including auto, health, homeowners/renters, life, and disability insurance.</div>
+          <div class="skill-builder">Insurance Coverage Analyzer</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">11.3: Insurance Costs</div>
+          <div class="chapter-desc">Examines factors that affect insurance premiums, strategies for reducing insurance costs, and evaluating policy options.</div>
+          <div class="skill-builder">Insurance Cost Comparison</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Standard 12 -->
+  <div class="standard-box" id="standard12">
+    <div class="standard-header">
+      <div style="display: flex; align-items: center;">
+        <div class="standard-icon">12</div>
+        <div class="standard-title">Gambling</div>
+      </div>
+    </div>
+    <div class="standard-content">
+      <p>This standard examines gambling from a financial perspective, including probability, risk assessment, and responsible decision-making. Students develop a critical understanding of gambling activities and their financial implications.</p>
+      
+      <div class="alignments">
+        <strong>Alignments:</strong> CEE Standard XII, Jump$tart Financial Decision Making, NEFE Risk Management
+      </div>
+      
+      <h3>Chapters in this Standard:</h3>
+      <ul class="chapter-list">
+        <li class="chapter-item">
+          <div class="chapter-title">12.1: Understanding the Risks of Gambling</div>
+          <div class="chapter-desc">Explores financial and psychological risks associated with gambling and analyzes probability concepts.</div>
+          <div class="skill-builder">Probability Simulator</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">12.2: The Costs and Benefits of Gambling</div>
+          <div class="chapter-desc">Examines the financial impact of gambling on individuals, families, and communities, and explores responsible approaches.</div>
+          <div class="skill-builder">Risk-Reward Analyzer</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Page Break -->
+  <div class="page-break"></div>
+
+  <!-- Standard 13 -->
+  <div class="standard-box" id="standard13">
+    <div class="standard-header">
+      <div style="display: flex; align-items: center;">
+        <div class="standard-icon">13</div>
+        <div class="standard-title">Debt Management</div>
+      </div>
+    </div>
+    <div class="standard-content">
+      <p>This standard focuses on strategies for managing high levels of debt, understanding debt relief options, and rebuilding financial health. Students learn about various approaches to debt management and financial recovery.</p>
+      
+      <div class="alignments">
+        <strong>Alignments:</strong> CEE Standard XIII, Jump$tart Credit & Debt, NEFE Credit & Debt
+      </div>
+      
+      <h3>Chapters in this Standard:</h3>
+      <ul class="chapter-list">
+        <li class="chapter-item">
+          <div class="chapter-title">13.1: Strategies for Managing High Levels of Debt</div>
+          <div class="chapter-desc">Covers debt reduction strategies, prioritizing debt payments, debt consolidation, credit counseling, and bankruptcy implications.</div>
+          <div class="skill-builder">Debt Payoff Calculator</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Standard 14 -->
+  <div class="standard-box" id="standard14">
+    <div class="standard-header">
+      <div style="display: flex; align-items: center;">
+        <div class="standard-icon">14</div>
+        <div class="standard-title">Charitable Giving</div>
+      </div>
+    </div>
+    <div class="standard-content">
+      <p>This standard explores philanthropic giving as part of a financial plan. Students learn how to evaluate charitable organizations, understand the tax implications of giving, and align charitable activities with personal values and financial goals.</p>
+      
+      <div class="alignments">
+        <strong>Alignments:</strong> CEE Standard XIV, Jump$tart Financial Decision Making, NEFE Planning & Money Management
+      </div>
+      
+      <h3>Chapters in this Standard:</h3>
+      <ul class="chapter-list">
+        <li class="chapter-item">
+          <div class="chapter-title">14.1: Charitable Giving and Financial Planning</div>
+          <div class="chapter-desc">Explores how to incorporate charitable giving into a financial plan and examines the tax implications of donations.</div>
+          <div class="skill-builder">Giving Plan Builder</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">14.2: Checking Out Charitable Groups</div>
+          <div class="chapter-desc">Provides frameworks for evaluating charitable organizations, understanding efficiency ratings, and avoiding charity scams.</div>
+          <div class="skill-builder">Charity Evaluation Tool</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Standard 15 -->
+  <div class="standard-box" id="standard15">
+    <div class="standard-header">
+      <div style="display: flex; align-items: center;">
+        <div class="standard-icon">15</div>
+        <div class="standard-title">Career Readiness</div>
+      </div>
+    </div>
+    <div class="standard-content">
+      <p>This standard focuses on preparing students for career success, from job search strategies to workplace readiness skills. Students develop practical tools for career planning, job acquisition, and professional development.</p>
+      
+      <div class="alignments">
+        <strong>Alignments:</strong> CEE Standard XV, Jump$tart Income & Careers, NEFE Career
+      </div>
+      
+      <h3>Chapters in this Standard:</h3>
+      <ul class="chapter-list">
+        <li class="chapter-item">
+          <div class="chapter-title">15.1: Career Exploration and Goal Setting</div>
+          <div class="chapter-desc">Guides students through self-assessment, career research, and setting meaningful career goals aligned with personal values.</div>
+          <div class="skill-builder">Career Path Planner</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">15.2: Resume Building and Personal Branding</div>
+          <div class="chapter-desc">Teaches strategies for creating impactful resumes, developing a professional online presence, and building a personal brand.</div>
+          <div class="skill-builder">Resume Builder</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">15.3: Job Application Process</div>
+          <div class="chapter-desc">Covers effective job search strategies, application materials preparation, and navigating the hiring process.</div>
+          <div class="skill-builder">Application Simulator</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">15.4: Interview Skills and Workplace Readiness</div>
+          <div class="chapter-desc">Provides techniques for successful interviewing, workplace etiquette, and professional communication skills.</div>
+          <div class="skill-builder">Interview Simulator</div>
+        </li>
+        <li class="chapter-item">
+          <div class="chapter-title">15.5: Entrepreneurship and Side Hustles</div>
+          <div class="chapter-desc">Explores entrepreneurship concepts, starting a small business, and developing side income opportunities.</div>
+          <div class="skill-builder">Business Plan Builder</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Page Break -->
+  <div class="page-break"></div>
+
+  <div class="section">
+    <h2>Implementation Recommendations</h2>
+    <p>While the curriculum is designed to be taught sequentially from Standards 1-15, many teachers choose to focus on specific standards based on student needs and course requirements. Here are some recommended approaches:</p>
+    
+    <h3>For a Comprehensive Financial Literacy Course</h3>
+    <p>If you have a full semester or year to teach financial literacy, we recommend covering all standards in sequence, spending approximately 1-2 weeks on each standard.</p>
+    
+    <h3>For a Mini-Course or Unit</h3>
+    <p>If you have limited time, consider focusing on these essential standards:</p>
+    <ol>
+      <li><strong>Standard 1:</strong> Income & Careers</li>
+      <li><strong>Standard 4:</strong> Banking Tools</li>
+      <li><strong>Standard 5:</strong> Saving & Investing</li>
+      <li><strong>Standard 7:</strong> Borrowing</li>
+      <li><strong>Standard 15:</strong> Career Readiness</li>
+    </ol>
+    
+    <h3>For Integration into Other Courses</h3>
+    <table>
+      <tr>
+        <th>Course</th>
+        <th>Recommended Standards</th>
+      </tr>
+      <tr>
+        <td>Economics</td>
+        <td>2 (Taxes), 5 (Saving & Investing), 10 (Housing Decisions)</td>
+      </tr>
+      <tr>
+        <td>Math</td>
+        <td>5 (Saving & Investing), 7 (Borrowing), 11 (Risk Management)</td>
+      </tr>
+      <tr>
+        <td>Business</td>
+        <td>1 (Income & Careers), 8 (Credit & Debit Cards), 15 (Career Readiness)</td>
+      </tr>
+      <tr>
+        <td>Family & Consumer Sciences</td>
+        <td>4 (Banking Tools), 9 (Consumer Protection), 13 (Debt Management)</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="callout">
+    <strong>Need More Details?</strong> For complete information on each standard, including all chapters, learning objectives, and assessment options, please refer to the comprehensive Curriculum Guide available through your PFL Academy teacher portal.
+  </div>
+  
+  <div class="section">
+    <h2>Implementation Recommendations</h2>
+    <p>While the curriculum is designed to be taught sequentially from Standards 1-15, many teachers choose to focus on specific standards based on student needs and course requirements. Here are some recommended approaches:</p>
+    
+    <h3>For a Comprehensive Financial Literacy Course</h3>
+    <p>If you have a full semester or year to teach financial literacy, we recommend covering all standards in sequence, spending approximately 1-2 weeks on each standard.</p>
+    
+    <h3>For a Mini-Course or Unit</h3>
+    <p>If you have limited time, consider focusing on these essential standards:</p>
+    <ol>
+      <li><strong>Standard 1:</strong> Income & Careers</li>
+      <li><strong>Standard 4:</strong> Banking Tools</li>
+      <li><strong>Standard 5:</strong> Saving & Investing</li>
+      <li><strong>Standard 7:</strong> Borrowing</li>
+      <li><strong>Standard 15:</strong> Career Readiness</li>
+    </ol>
+    
+    <h3>For Integration into Other Courses</h3>
+    <table>
+      <tr>
+        <th>Course</th>
+        <th>Recommended Standards</th>
+      </tr>
+      <tr>
+        <td>Economics</td>
+        <td>2 (Taxes), 5 (Saving & Investing), 10 (Housing Decisions)</td>
+      </tr>
+      <tr>
+        <td>Math</td>
+        <td>5 (Saving & Investing), 7 (Borrowing), 11 (Risk Management)</td>
+      </tr>
+      <tr>
+        <td>Business</td>
+        <td>1 (Income & Careers), 8 (Credit & Debit Cards), 15 (Career Readiness)</td>
+      </tr>
+      <tr>
+        <td>Family & Consumer Sciences</td>
+        <td>4 (Banking Tools), 9 (Consumer Protection), 13 (Debt Management)</td>
+      </tr>
+    </table>
+  </div>
+  
+  <footer>
+    <p>© 2025 PFL Academy. All rights reserved.</p>
+    <p>This curriculum standards reference is updated annually. For the latest version, visit your teacher dashboard.</p>
+  </footer>
+</body>
+</html>
