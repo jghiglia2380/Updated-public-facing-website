@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Career Path Skill Builder Tour</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .tour-highlight {
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.6);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 10;
+      background-color: rgba(255, 255, 255, 1);
+    }
+    
+    .tour-tooltip {
+      background-color: #6366f1;
+      color: white;
+      padding: 12px 16px;
+      border-radius: 8px;
+      position: absolute;
+      width: 280px;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      z-index: 100;
+    }
+    
+    .tour-tooltip:before {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 10px solid #6366f1;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    .tour-tooltip.top:before {
+      border-bottom: none;
+      border-top: 10px solid #6366f1;
+      top: auto;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    .tour-tooltip.bottom:before {
+      border-top: none;
+      border-bottom: 10px solid #6366f1;
+      bottom: auto;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    .tour-tooltip.right:before {
+      left: auto;
+      right: 20px;
+    }
+    
+    /* Fade effect for tour animation */
+    .tour-fade {
+      animation: fade-in 0.5s ease-in-out;
+    }
+    
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Pulsing effect for highlighting */
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(99, 102, 241, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
+    }
+    
+    /* Navigation controls */
+    .tour-controls {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      display: flex;
+      gap: 12px;
+      z-index: 1000;
+    }
+    
+    .tour-button {
+      padding: 8px 16px;
+      background-color: #6366f1;
+      color: white;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .tour-button:hover {
+      background-color: #4f46e5;
+    }
+    
+    .tour-button:disabled {
+      background-color: #c7d2fe;
+      cursor: not-allowed;
+    }
+    
+    .tour-progress {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      background-color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      font-size: 14px;
+      z-index: 1000;
+    }
+    
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 5;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen p-6">
+  <div class="max-w-[1000px] mx-auto py-8 bg-white rounded-lg shadow-md p-8">
+    <!-- Tour Progress Indicator -->
+    <div class="tour-progress">
+      Tour: <span id="tour-step-counter">1</span> of <span id="tour-total-steps">12</span>
+    </div>
+    
+    <!-- Overlay for focusing attention -->
+    <div class="overlay" id="overlay"></div>
+    
+    <!-- Tour Controls -->
+    <div class="tour-controls">
+      <button id="prev-button" class="tour-button" disabled>Previous</button>
+      <button id="next-button" class="tour-button">Next</button>
+      <button id="close-button" class="tour-button bg-gray-600 hover:bg-gray-700">Close Tour</button>
+    </div>
+    
+    <h1 class="text-2xl font-bold text-center mb-4">Career Path Skill Builder</h1>
+    <p class="text-center text-gray-600 mb-6">
+      Create a comprehensive career development plan aligned with your short, medium, and long-term goals.
+    </p>
+    
+    <!-- Career Path Planner Tool Container -->
+    <div class="bg-white rounded-lg shadow-lg p-8" id="career-path-container">
+      <div class="mb-8" id="skill-builder-header">
+        <h3 class="text-2xl font-bold text-gray-900 mb-2">
+          Guided Career Path Planner
+        </h3>
+        <p class="text-gray-600">Create a complete career development strategy by defining clear goals across multiple time frames.</p>
+      </div>
+
+      <!-- Step Progress Indicator -->
+      <div class="mb-8" id="step-progress-section">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-medium text-gray-700">
+            Step 1 of 3
+          </span>
+          <span class="text-sm text-gray-500">
+            33% Complete
+          </span>
+        </div>
+        
+        <div class="relative">
+          <div class="w-full h-2 bg-gray-200 rounded-full">
+            <div
+              class="h-2 bg-indigo-600 rounded-full transition-all duration-300"
+              style="width: 33%"
+            ></div>
+          </div>
+          
+          <div class="absolute top-4 left-0 w-full flex justify-between">
+            <div class="text-xs text-indigo-600">Short-Term Goals</div>
+            <div class="text-xs text-gray-400">Mid-Term Goals</div>
+            <div class="text-xs text-gray-400">Long-Term Goals</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Short-Term Goals Section -->
+      <div class="bg-gray-50 rounded-lg p-6 mb-8" id="goals-selector-container">
+        <h4 class="text-lg font-semibold text-gray-900 mb-6" id="timeframe-title">
+          Short-Term Goals (1-2 Years)
+        </h4>
+
+        <!-- Goal Selector Area -->
+        <div class="space-y-6" id="goal-selector-form">
+          <!-- Education Goals -->
+          <div class="relative" id="education-goals-section">
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              Education Goals
+            </label>
+            <select
+              class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            >
+              <option value="">Select a goal...</option>
+              <option value="Complete a certificate in my field">Complete a certificate in my field</option>
+              <option value="Take specific courses to enhance skills">Take specific courses to enhance skills</option>
+              <option value="Start an associate's degree program">Start an associate's degree program</option>
+              <option value="Complete my bachelor's degree">Complete my bachelor's degree</option>
+              <option value="Research graduate programs">Research graduate programs</option>
+            </select>
+          </div>
+
+          <!-- Work Experience Goals -->
+          <div class="relative" id="work-experience-section">
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              Work Experience Goals
+            </label>
+            <select
+              class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            >
+              <option value="">Select a goal...</option>
+              <option value="Secure an entry-level position">Secure an entry-level position</option>
+              <option value="Complete an internship">Complete an internship</option>
+              <option value="Find a job in my desired field">Find a job in my desired field</option>
+              <option value="Earn a promotion">Earn a promotion</option>
+              <option value="Take on leadership responsibilities">Take on leadership responsibilities</option>
+            </select>
+          </div>
+
+          <!-- Networking Goals -->
+          <div class="relative" id="networking-section">
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              Networking Goals
+            </label>
+            <select
+              class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            >
+              <option value="">Select a goal...</option>
+              <option value="Attend industry events">Attend industry events</option>
+              <option value="Join a professional organization">Join a professional organization</option>
+              <option value="Connect with 5 professionals in my field">Connect with 5 professionals in my field</option>
+              <option value="Find a mentor">Find a mentor</option>
+              <option value="Build an online professional profile">Build an online professional profile</option>
+            </select>
+          </div>
+
+          <!-- Skill Development Goals -->
+          <div class="relative" id="skill-development-section">
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              Skill Development Goals
+            </label>
+            <select
+              class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            >
+              <option value="">Select a goal...</option>
+              <option value="Learn industry software/tools">Learn industry software/tools</option>
+              <option value="Develop specific technical skills">Develop specific technical skills</option>
+              <option value="Improve communication skills">Improve communication skills</option>
+              <option value="Strengthen leadership abilities">Strengthen leadership abilities</option>
+              <option value="Build project management skills">Build project management skills</option>
+            </select>
+          </div>
+
+          <!-- Other Goals -->
+          <div class="relative" id="other-goals-section">
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              Other Goals
+            </label>
+            <select
+              class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            >
+              <option value="">Select a goal...</option>
+              <option value="Build a professional portfolio">Build a professional portfolio</option>
+              <option value="Learn about industry trends">Learn about industry trends</option>
+              <option value="Save money for education">Save money for education</option>
+              <option value="Explore career specializations">Explore career specializations</option>
+              <option value="Improve work-life balance">Improve work-life balance</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="flex justify-between" id="navigation-buttons">
+        <button
+          disabled
+          class="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+        >
+          Previous Step
+        </button>
+        <button
+          class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+        >
+          Next Step
+        </button>
+      </div>
+    </div>
+    
+    <!-- Mid-Term Goals Section (Initially hidden but shown in tour) -->
+    <div class="hidden mt-8 bg-white rounded-lg shadow-lg p-8" id="mid-term-goals-section">
+      <div class="mb-8">
+        <h3 class="text-2xl font-bold text-gray-900 mb-2">
+          Guided Career Path Planner
+        </h3>
+        <p class="text-gray-600">Create a complete career development strategy by defining clear goals across multiple time frames.</p>
+      </div>
+
+      <!-- Step Progress Indicator -->
+      <div class="mb-8">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-medium text-gray-700">
+            Step 2 of 3
+          </span>
+          <span class="text-sm text-gray-500">
+            66% Complete
+          </span>
+        </div>
+        
+        <div class="relative">
+          <div class="w-full h-2 bg-gray-200 rounded-full">
+            <div
+              class="h-2 bg-indigo-600 rounded-full transition-all duration-300"
+              style="width: 66%"
+            ></div>
+          </div>
+          
+          <div class="absolute top-4 left-0 w-full flex justify-between">
+            <div class="text-xs text-indigo-600">Short-Term Goals</div>
+            <div class="text-xs text-indigo-600">Mid-Term Goals</div>
+            <div class="text-xs text-gray-400">Long-Term Goals</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mid-Term Goals Form -->
+      <div class="bg-gray-50 rounded-lg p-6 mb-8">
+        <h4 class="text-lg font-semibold text-gray-900 mb-6">
+          Mid-Term Goals (3-5 Years)
+        </h4>
+
+        <!-- Goal Selector Area -->
+        <div class="space-y-6">
+          <!-- Education Goals -->
+          <div class="relative">
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              Education Goals
+            </label>
+            <select
+              class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            >
+              <option value="">Select a goal...</option>
+              <option value="Complete a master's degree">Complete a master's degree</option>
+              <option value="Earn specialized certifications">Earn specialized certifications</option>
+              <option value="Complete an executive education program">Complete an executive education program</option>
+              <option value="Attend professional development workshops">Attend professional development workshops</option>
+              <option value="Learn a new language for business">Learn a new language for business</option>
+            </select>
+          </div>
+
+          <!-- Work Experience Goals -->
+          <div class="relative">
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              Work Experience Goals
+            </label>
+            <select
+              class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            >
+              <option value="">Select a goal...</option>
+              <option value="Move into a management position">Move into a management position</option>
+              <option value="Transition to a senior specialist role">Transition to a senior specialist role</option>
+              <option value="Lead major projects">Lead major projects</option>
+              <option value="Gain international work experience">Gain international work experience</option>
+              <option value="Become a team lead">Become a team lead</option>
+            </select>
+          </div>
+
+          <!-- Networking Goals -->
+          <div class="relative">
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              Networking Goals
+            </label>
+            <select
+              class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            >
+              <option value="">Select a goal...</option>
+              <option value="Present at industry conferences">Present at industry conferences</option>
+              <option value="Become active in professional associations">Become active in professional associations</option>
+              <option value="Build connections with industry leaders">Build connections with industry leaders</option>
+              <option value="Develop a broader industry network">Develop a broader industry network</option>
+              <option value="Become a mentor to junior professionals">Become a mentor to junior professionals</option>
+            </select>
+          </div>
+
+          <!-- Skill Development Goals -->
+          <div class="relative">
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              Skill Development Goals
+            </label>
+            <select
+              class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            >
+              <option value="">Select a goal...</option>
+              <option value="Develop advanced technical expertise">Develop advanced technical expertise</option>
+              <option value="Master specialized industry software">Master specialized industry software</option>
+              <option value="Enhance strategic planning abilities">Enhance strategic planning abilities</option>
+              <option value="Develop mentoring and coaching skills">Develop mentoring and coaching skills</option>
+              <option value="Improve data analysis capabilities">Improve data analysis capabilities</option>
+            </select>
+          </div>
+
+          <!-- Other Goals -->
+          <div class="relative">
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              Other Goals
+            </label>
+            <select
+              class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            >
+              <option value="">Select a goal...</option>
+              <option value="Publish articles in industry publications">Publish articles in industry publications</option>
+              <option value="Serve on advisory boards">Serve on advisory boards</option>
+              <option value="Build a substantial career savings fund">Build a substantial career savings fund</option>
+              <option value="Develop work-life integration skills">Develop work-life integration skills</option>
+              <option value="Prepare for potential career pivot">Prepare for potential career pivot</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Long-Term Goals Section (Initially hidden but shown in tour) -->
+    <div class="hidden mt-8 bg-white rounded-lg shadow-lg p-8" id="long-term-goals-section">
+      <div class="mb-8">
+        <h3 class="text-2xl font-bold text-gray-900 mb-2">
+          Guided Career Path Planner
+        </h3>
+        <p class="text-gray-600">Create a complete career development strategy by defining clear goals across multiple time frames.</p>
+      </div>
+
+      <!-- Step Progress Indicator -->
+      <div class="mb-8">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-medium text-gray-700">
+            Step 3 of 3
+          </span>
+          <span class="text-sm text-gray-500">
+            100% Complete
+          </span>
+        </div>
+        
+        <div class="relative">
+          <div class="w-full h-2 bg-gray-200 rounded-full">
+            <div
+              class="h-2 bg-indigo-600 rounded-full transition-all duration-300"
+              style="width: 100%"
+            ></div>
+          </div>
+          
+          <div class="absolute top-4 left-0 w-full flex justify-between">
+            <div class="text-xs text-indigo-600">Short-Term Goals</div>
+            <div class="text-xs text-indigo-600">Mid-Term Goals</div>
+            <div class="text-xs text-indigo-600">Long-Term Goals</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Long-Term Goals Form -->
+      <div class="bg-gray-50 rounded-lg p-6 mb-8">
+        <h4 class="text-lg font-semibold text-gray-900 mb-6">
+          Long-Term Goals (5-10 Years)
+        </h4>
+
+        <!-- Goal Selector Area -->
+        <div class="space-y-6">
+          <!-- Education Goals -->
+          <div class="relative">
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              Education Goals
+            </label>
+            <select
+              class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            >
+              <option value="">Select a goal...</option>
+              <option value="Earn a doctoral degree">Earn a doctoral degree</option>
+              <option value="Become recognized as a thought leader">Become recognized as a thought leader</option>
+              <option value="Complete an MBA or executive MBA">Complete an MBA or executive MBA</option>
+              <option value="Pursue continuous learning in emerging technologies">Pursue continuous learning in emerging technologies</option>
+              <option value="Develop expertise in multiple domains">Develop expertise in multiple domains</option>
+            </select>
+          </div>
+
+          <!-- Work Experience Goals -->
+          <div class="relative">
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              Work Experience Goals
+            </label>
+            <select
+              class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            >
+              <option value="">Select a goal...</option>
+              <option value="Reach executive leadership level">Reach executive leadership level</option>
+              <option value="Start my own business/consultancy">Start my own business/consultancy</option>
+              <option value="Achieve a C-level position">Achieve a C-level position</option>
+              <option value="Lead a significant organizational division">Lead a significant organizational division</option>
+              <option value="Become an industry consultant">Become an industry consultant</option>
+            </select>
+          </div>
+
+          <!-- Networking Goals -->
+          <div class="relative">
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              Networking Goals
+            </label>
+            <select
+              class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            >
+              <option value="">Select a goal...</option>
+              <option value="Build an extensive international network">Build an extensive international network</option>
+              <option value="Serve on professional boards">Serve on professional boards</option>
+              <option value="Establish a prominent industry presence">Establish a prominent industry presence</option>
+              <option value="Create a professional mentorship program">Create a professional mentorship program</option>
+              <option value="Develop strategic partnerships">Develop strategic partnerships</option>
+            </select>
+          </div>
+
+          <!-- Skill Development Goals -->
+          <div class="relative">
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              Skill Development Goals
+            </label>
+            <select
+              class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            >
+              <option value="">Select a goal...</option>
+              <option value="Master executive leadership competencies">Master executive leadership competencies</option>
+              <option value="Develop global business acumen">Develop global business acumen</option>
+              <option value="Cultivate change leadership capabilities">Cultivate change leadership capabilities</option>
+              <option value="Develop strong organizational strategy skills">Develop strong organizational strategy skills</option>
+              <option value="Become a recognized subject matter expert">Become a recognized subject matter expert</option>
+            </select>
+          </div>
+
+          <!-- Other Goals -->
+          <div class="relative">
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              Other Goals
+            </label>
+            <select
+              class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            >
+              <option value="">Select a goal...</option>
+              <option value="Publish a book in my field">Publish a book in my field</option>
+              <option value="Create significant innovations in my industry">Create significant innovations in my industry</option>
+              <option value="Achieve financial independence">Achieve financial independence</option>
+              <option value="Build a lasting professional legacy">Build a lasting professional legacy</option>
+              <option value="Establish work-life balance at senior levels">Establish work-life balance at senior levels</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Career Plan Summary Section (Initially hidden but shown in tour) -->
+    <div class="hidden mt-8 bg-white rounded-lg shadow-lg p-8" id="career-plan-summary">
+      <div class="text-center mb-8">
+        <svg class="h-12 w-12 text-green-500 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <h3 class="text-2xl font-bold text-gray-900">
+          Career Path Plan Complete!
+        </h3>
+        <p class="text-gray-600 mt-2">
+          Here's your personalized career development plan:
+        </p>
+      </div>
+
+      <div class="space-y-8">
+        <!-- Short-Term Summary -->
+        <div class="bg-gray-50 rounded-lg p-6">
+          <h4 class="text-lg font-semibold text-gray-900 mb-4">
+            Short-Term Goals (1-2 Years)
+          </h4>
+          <dl class="space-y-3">
+            <div class="flex">
+              <dt class="w-1/3 font-medium text-gray-700">
+                Education Goals:
+              </dt>
+              <dd class="w-2/3 text-gray-900">
+                Complete a certificate in my field
+              </dd>
+            </div>
+            <div class="flex">
+              <dt class="w-1/3 font-medium text-gray-700">
+                Work Experience Goals:
+              </dt>
+              <dd class="w-2/3 text-gray-900">
+                Find a job in my desired field
+              </dd>
+            </div>
+            <div class="flex">
+              <dt class="w-1/3 font-medium text-gray-700">
+                Networking Goals:
+              </dt>
+              <dd class="w-2/3 text-gray-900">
+                Connect with 5 professionals in my field
+              </dd>
+            </div>
+            <div class="flex">
+              <dt class="w-1/3 font-medium text-gray-700">
+                Skill Development Goals:
+              </dt>
+              <dd class="w-2/3 text-gray-900">
+                Learn industry software/tools
+              </dd>
+            </div>
+            <div class="flex">
+              <dt class="w-1/3 font-medium text-gray-700">
+                Other Goals:
+              </dt>
+              <dd class="w-2/3 text-gray-900">
+                Build a professional portfolio
+              </dd>
+            </div>
+          </dl>
+        </div>
+
+        <!-- Mid-Term Summary -->
+        <div class="bg-gray-50 rounded-lg p-6">
+          <h4 class="text-lg font-semibold text-gray-900 mb-4">
+            Mid-Term Goals (3-5 Years)
+          </h4>
+          <dl class="space-y-3">
+            <div class="flex">
+              <dt class="w-1/3 font-medium text-gray-700">
+                Education Goals:
+              </dt>
+              <dd class="w-2/3 text-gray-900">
+                Earn specialized certifications
+              </dd>
+            </div>
+            <div class="flex">
+              <dt class="w-1/3 font-medium text-gray-700">
+                Work Experience Goals:
+              </dt>
+              <dd class="w-2/3 text-gray-900">
+                Move into a management position
+              </dd>
+            </div>
+            <div class="flex">
+              <dt class="w-1/3 font-medium text-gray-700">
+                Networking Goals:
+              </dt>
+              <dd class="w-2/3 text-gray-900">
+                Present at industry conferences
+              </dd>
+            </div>
+            <div class="flex">
+              <dt class="w-1/3 font-medium text-gray-700">
+                Skill Development Goals:
+              </dt>
+              <dd class="w-2/3 text-gray-900">
+                Develop mentoring and coaching skills
+              </dd>
+            </div>
+            <div class="flex">
+              <dt class="w-1/3 font-medium text-gray-700">
+                Other Goals:
+              </dt>
+              <dd class="w-2/3 text-gray-900">
+                Publish articles in industry publications
+              </dd>
+            </div>
+          </dl>
+        </div>
+
+        <!-- Long-Term Summary -->
+        <div class="bg-gray-50 rounded-lg p-6">
+          <h4 class="text-lg font-semibold text-gray-900 mb-4">
+            Long-Term Goals (5-10 Years)
+          </h4>
+          <dl class="space-y-3">
+            <div class="flex">
+              <dt class="w-1/3 font-medium text-gray-700">
+                Education Goals:
+              </dt>
+              <dd class="w-2/3 text-gray-900">
+                Complete an MBA or executive MBA
+              </dd>
+            </div>
+            <div class="flex">
+              <dt class="w-1/3 font-medium text-gray-700">
+                Work Experience Goals:
+              </dt>
+              <dd class="w-2/3 text-gray-900">
+                Lead a significant organizational division
+              </dd>
+            </div>
+            <div class="flex">
+              <dt class="w-1/3 font-medium text-gray-700">
+                Networking Goals:
+              </dt>
+              <dd class="w-2/3 text-gray-900">
+                Serve on professional boards
+              </dd>
+            </div>
+            <div class="flex">
+              <dt class="w-1/3 font-medium text-gray-700">
+                Skill Development Goals:
+              </dt>
+              <dd class="w-2/3 text-gray-900">
+                Develop strong organizational strategy skills
+              </dd>
+            </div>
+            <div class="flex">
+              <dt class="w-1/3 font-medium text-gray-700">
+                Other Goals:
+              </dt>
+              <dd class="w-2/3 text-gray-900">
+                Build a lasting professional legacy
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="mt-8 text-center">
+        <button
+          class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+        >
+          Create Another Career Path Plan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Selected values storage
+      const careerPathSelections = {
+        shortTerm: {
+          education: "",
+          workExperience: "",
+          networking: "",
+          skillDevelopment: "",
+          otherGoals: ""
+        },
+        midTerm: {
+          education: "",
+          workExperience: "",
+          networking: "",
+          skillDevelopment: "",
+          otherGoals: ""
+        },
+        longTerm: {
+          education: "",
+          workExperience: "",
+          networking: "",
+          skillDevelopment: "",
+          otherGoals: ""
+        }
+      };
+      
+      // Tour steps data - redefined to match the sequential dropdown pattern
+      const tourSteps = [
+        {
+          element: '#skill-builder-header',
+          title: 'Career Path Planner',
+          description: 'This tool helps you create a comprehensive career development plan by setting specific goals across different time frames: short-term (1-2 years), mid-term (3-5 years), and long-term (5-10 years).',
+          position: '',
+          action: 'intro'
+        },
+        {
+          element: '#step-progress-section',
+          title: 'Progress Tracker',
+          description: 'This progress indicator shows which phase of your career planning you\'re currently working on. You\'ll complete three steps: short-term goals, mid-term goals, and long-term goals.',
+          position: '',
+          action: 'intro'
+        },
+        {
+          element: '#education-goals-section',
+          title: 'Education Goals',
+          description: 'Let\'s start by selecting your educational objectives for the short-term (1-2 years). Options range from completing certifications to pursuing degrees or taking specific courses.',
+          position: '',
+          action: 'openEducationDropdown',
+          timeframe: 'shortTerm',
+          category: 'education',
+          selection: 'Complete a certificate in my field'
+        },
+        {
+          element: '#work-experience-section',
+          title: 'Work Experience Goals',
+          description: 'Now, define your professional growth objectives like securing particular positions, internships, or advancing in your current role.',
+          position: '',
+          action: 'openWorkExperienceDropdown',
+          timeframe: 'shortTerm',
+          category: 'workExperience',
+          selection: 'Find a job in my desired field'
+        },
+        {
+          element: '#networking-section',
+          title: 'Networking Goals',
+          description: 'Set targets for building professional relationships, such as attending industry events, joining professional organizations, or finding mentors.',
+          position: '',
+          action: 'openNetworkingDropdown',
+          timeframe: 'shortTerm',
+          category: 'networking',
+          selection: 'Connect with 5 professionals in my field'
+        },
+        {
+          element: '#skill-development-section',
+          title: 'Skill Development Goals',
+          description: 'Identify skills you need to develop, including technical skills, software proficiency, communication abilities, or leadership capabilities.',
+          position: '',
+          action: 'openSkillDevDropdown',
+          timeframe: 'shortTerm',
+          category: 'skillDevelopment',
+          selection: 'Learn industry software/tools'
+        },
+        {
+          element: '#other-goals-section',
+          title: 'Other Goals',
+          description: 'Set additional career-related objectives such as building a portfolio, researching industry trends, or improving work-life balance.',
+          position: '',
+          action: 'openOtherGoalsDropdown',
+          timeframe: 'shortTerm',
+          category: 'otherGoals',
+          selection: 'Build a professional portfolio'
+        },
+        // Going directly to Mid-Term Goals (skipping transition)
+        {
+          element: '#mid-term-goals-section .absolute .text-xs:nth-child(2)',
+          title: 'Mid-Term Career Planning',
+          description: 'This section helps you define your mid-term goals (3-5 years). These bridge your immediate objectives with your long-term aspirations.',
+          position: 'bottom',
+          action: 'showMidTermSection',
+          timeframe: 'midTerm'
+        },
+        {
+          element: '#mid-term-goals-section .space-y-6 div:nth-child(1)',
+          title: 'Education Goals (Mid-Term)',
+          description: 'Select your educational objectives for 3-5 years from now. These typically build upon the foundation established in your short-term plan.',
+          position: '',
+          action: 'openMidTermEducationDropdown',
+          timeframe: 'midTerm',
+          category: 'education',
+          selection: 'Earn specialized certifications'
+        },
+        {
+          element: '#mid-term-goals-section .space-y-6 div:nth-child(2)',
+          title: 'Work Experience Goals (Mid-Term)',
+          description: 'Define your professional aspirations for 3-5 years from now. Consider the career progression that follows your short-term achievements.',
+          position: '',
+          action: 'openMidTermWorkExperienceDropdown',
+          timeframe: 'midTerm',
+          category: 'workExperience',
+          selection: 'Move into a management position'
+        },
+        {
+          element: '#mid-term-goals-section .space-y-6 div:nth-child(3)',
+          title: 'Networking Goals (Mid-Term)',
+          description: 'How will you expand your professional network in the mid-term? Consider more advanced networking activities that build on your earlier connections.',
+          position: '',
+          action: 'openMidTermNetworkingDropdown',
+          timeframe: 'midTerm',
+          category: 'networking',
+          selection: 'Present at industry conferences'
+        },
+        {
+          element: '#mid-term-goals-section .space-y-6 div:nth-child(4)',
+          title: 'Skill Development Goals (Mid-Term)',
+          description: 'What more advanced skills will you need to develop in 3-5 years? These often include specialized expertise or leadership capabilities.',
+          position: '',
+          action: 'openMidTermSkillDevDropdown',
+          timeframe: 'midTerm',
+          category: 'skillDevelopment',
+          selection: 'Develop mentoring and coaching skills'
+        },
+        {
+          element: '#mid-term-goals-section .space-y-6 div:nth-child(5)',
+          title: 'Other Goals (Mid-Term)',
+          description: 'Set additional career-related objectives for your mid-term planning, such as publishing articles or serving on advisory boards.',
+          position: '',
+          action: 'openMidTermOtherGoalsDropdown',
+          timeframe: 'midTerm',
+          category: 'otherGoals',
+          selection: 'Publish articles in industry publications'
+        },
+        // Going directly to Long-Term Goals (skipping transition)
+        {
+          element: '#long-term-goals-section .absolute .text-xs:nth-child(3)',
+          title: 'Long-Term Career Planning',
+          description: 'Finally, define your long-term career aspirations (5-10 years). These ambitious goals will help you maintain vision and direction throughout your career journey.',
+          position: 'bottom',
+          action: 'showLongTermSection',
+          timeframe: 'longTerm'
+        },
+        {
+          element: '#long-term-goals-section .space-y-6 div:nth-child(1)',
+          title: 'Education Goals (Long-Term)',
+          description: 'What are your most ambitious educational goals for 5-10 years from now? Consider advanced degrees or becoming a recognized thought leader.',
+          position: '',
+          action: 'openLongTermEducationDropdown',
+          timeframe: 'longTerm',
+          category: 'education',
+          selection: 'Complete an MBA or executive MBA'
+        },
+        {
+          element: '#long-term-goals-section .space-y-6 div:nth-child(2)',
+          title: 'Work Experience Goals (Long-Term)',
+          description: 'Define your long-term professional aspirations. These might include executive roles, starting your own business, or leading major organizational divisions.',
+          position: '',
+          action: 'openLongTermWorkExperienceDropdown',
+          timeframe: 'longTerm',
+          category: 'workExperience',
+          selection: 'Lead a significant organizational division'
+        },
+        {
+          element: '#long-term-goals-section .space-y-6 div:nth-child(3)',
+          title: 'Networking Goals (Long-Term)',
+          description: 'How will you leverage and expand your professional network in the long-term? Consider leadership roles in your industry or professional community.',
+          position: '',
+          action: 'openLongTermNetworkingDropdown',
+          timeframe: 'longTerm',
+          category: 'networking',
+          selection: 'Serve on professional boards'
+        },
+        {
+          element: '#long-term-goals-section .space-y-6 div:nth-child(4)',
+          title: 'Skill Development Goals (Long-Term)',
+          description: 'What high-level skills will you need to develop in the long-term? These often include executive leadership competencies or strategic vision.',
+          position: '',
+          action: 'openLongTermSkillDevDropdown',
+          timeframe: 'longTerm',
+          category: 'skillDevelopment',
+          selection: 'Develop strong organizational strategy skills'
+        },
+        {
+          element: '#long-term-goals-section .space-y-6 div:nth-child(5)',
+          title: 'Other Goals (Long-Term)',
+          description: 'Set additional long-term career objectives, such as publishing books, creating significant innovations, or building a lasting professional legacy.',
+          position: '',
+          action: 'openLongTermOtherGoalsDropdown',
+          timeframe: 'longTerm',
+          category: 'otherGoals',
+          selection: 'Build a lasting professional legacy'
+        },
+        {
+          element: '#long-term-goals-section',
+          title: 'Completing Your Career Path Plan',
+          description: 'Let\'s view your complete career development plan by clicking "Next Step".',
+          position: '',
+          action: 'showSummarySection'
+        },
+        {
+          element: '#career-plan-summary',
+          title: 'Career Path Summary',
+          description: 'Here\'s your comprehensive career development plan showing how your goals build upon each other across the short, mid, and long-term phases.',
+          position: '',
+          action: 'showSummary'
+        }
+      ];
+      
+      let currentStep = 0;
+      const totalSteps = tourSteps.length;
+      
+      // Update step counter
+      document.getElementById('tour-total-steps').textContent = totalSteps;
+      
+      // Tour control elements
+      const prevButton = document.getElementById('prev-button');
+      const nextButton = document.getElementById('next-button');
+      const closeButton = document.getElementById('close-button');
+      const stepCounter = document.getElementById('tour-step-counter');
+      const overlay = document.getElementById('overlay');
+      
+      // Reset all dropdowns to closed state
+      function closeAllDropdowns() {
+        const selectElements = document.querySelectorAll('select');
+        selectElements.forEach(select => {
+          select.size = 1; // Reset to default closed state
+        });
+      }
+      
+      // Function to show/hide sections based on tour progress
+      function updateVisibleSections(stepIndex) {
+        // Hide all special sections first
+        document.getElementById('mid-term-goals-section').classList.add('hidden');
+        document.getElementById('long-term-goals-section').classList.add('hidden');
+        document.getElementById('career-plan-summary').classList.add('hidden');
+        
+        // Show the appropriate section based on the step
+        const step = tourSteps[stepIndex];
+        if (step.action === 'showMidTermSection' || 
+            step.action === 'showMidTermIntro' || 
+            step.timeframe === 'midTerm') {
+          document.getElementById('career-path-container').classList.add('hidden');
+          document.getElementById('mid-term-goals-section').classList.remove('hidden');
+          document.getElementById('long-term-goals-section').classList.add('hidden');
+          document.getElementById('career-plan-summary').classList.add('hidden');
+        } else if (step.action === 'showLongTermSection' || 
+                  step.action === 'showLongTermIntro' || 
+                  step.timeframe === 'longTerm') {
+          document.getElementById('career-path-container').classList.add('hidden');
+          document.getElementById('mid-term-goals-section').classList.add('hidden');
+          document.getElementById('long-term-goals-section').classList.remove('hidden');
+          document.getElementById('career-plan-summary').classList.add('hidden');
+        } else if (step.action === 'showSummarySection' || 
+                  step.action === 'showSummary') {
+          document.getElementById('career-path-container').classList.add('hidden');
+          document.getElementById('mid-term-goals-section').classList.add('hidden');
+          document.getElementById('long-term-goals-section').classList.add('hidden');
+          document.getElementById('career-plan-summary').classList.remove('hidden');
+          updateSummaryContent();
+        } else {
+          document.getElementById('career-path-container').classList.remove('hidden');
+          document.getElementById('mid-term-goals-section').classList.add('hidden');
+          document.getElementById('long-term-goals-section').classList.add('hidden');
+          document.getElementById('career-plan-summary').classList.add('hidden');
+        }
+      }
+      
+      // Function to update the summary section with selected values
+      function updateSummaryContent() {
+        // Short-term goals
+        document.querySelector('#career-plan-summary dd:nth-of-type(1)').textContent = careerPathSelections.shortTerm.education;
+        document.querySelector('#career-plan-summary dd:nth-of-type(2)').textContent = careerPathSelections.shortTerm.workExperience;
+        document.querySelector('#career-plan-summary dd:nth-of-type(3)').textContent = careerPathSelections.shortTerm.networking;
+        document.querySelector('#career-plan-summary dd:nth-of-type(4)').textContent = careerPathSelections.shortTerm.skillDevelopment;
+        document.querySelector('#career-plan-summary dd:nth-of-type(5)').textContent = careerPathSelections.shortTerm.otherGoals;
+        
+        // Mid-term goals
+        document.querySelector('#career-plan-summary dd:nth-of-type(6)').textContent = careerPathSelections.midTerm.education;
+        document.querySelector('#career-plan-summary dd:nth-of-type(7)').textContent = careerPathSelections.midTerm.workExperience;
+        document.querySelector('#career-plan-summary dd:nth-of-type(8)').textContent = careerPathSelections.midTerm.networking;
+        document.querySelector('#career-plan-summary dd:nth-of-type(9)').textContent = careerPathSelections.midTerm.skillDevelopment;
+        document.querySelector('#career-plan-summary dd:nth-of-type(10)').textContent = careerPathSelections.midTerm.otherGoals;
+        
+        // Long-term goals
+        document.querySelector('#career-plan-summary dd:nth-of-type(11)').textContent = careerPathSelections.longTerm.education;
+        document.querySelector('#career-plan-summary dd:nth-of-type(12)').textContent = careerPathSelections.longTerm.workExperience;
+        document.querySelector('#career-plan-summary dd:nth-of-type(13)').textContent = careerPathSelections.longTerm.networking;
+        document.querySelector('#career-plan-summary dd:nth-of-type(14)').textContent = careerPathSelections.longTerm.skillDevelopment;
+        document.querySelector('#career-plan-summary dd:nth-of-type(15)').textContent = careerPathSelections.longTerm.otherGoals;
+      }
+      
+      // Function to handle dropdown interactions based on step
+      function handleStepAction(step) {
+        // Close all dropdowns first
+        closeAllDropdowns();
+        
+        if (!step || !step.action) return;
+        
+        // Handle different actions based on step
+        switch(step.action) {
+          case 'openEducationDropdown':
+            // Open the dropdown after a short delay to allow highlight to appear
+            setTimeout(() => {
+              const select = document.querySelector('#education-goals-section select');
+              select.size = 6; // Open dropdown
+              
+              // Make a selection after giving user time to see options
+              setTimeout(() => {
+                select.value = step.selection;
+                careerPathSelections.shortTerm.education = step.selection;
+              }, 2000);
+            }, 1000);
+            break;
+            
+          case 'openWorkExperienceDropdown':
+            setTimeout(() => {
+              const select = document.querySelector('#work-experience-section select');
+              select.size = 6; // Open dropdown
+              setTimeout(() => {
+                select.value = step.selection; // Make selection after 2 seconds
+                careerPathSelections.shortTerm.workExperience = step.selection;
+              }, 2000);
+            }, 1000);
+            break;
+            
+          case 'openNetworkingDropdown':
+            setTimeout(() => {
+              const select = document.querySelector('#networking-section select');
+              select.size = 6; // Open dropdown
+              setTimeout(() => {
+                select.value = step.selection; // Make selection after 2 seconds
+                careerPathSelections.shortTerm.networking = step.selection;
+              }, 2000);
+            }, 1000);
+            break;
+            
+          case 'openSkillDevDropdown':
+            setTimeout(() => {
+              const select = document.querySelector('#skill-development-section select');
+              select.size = 6; // Open dropdown
+              setTimeout(() => {
+                select.value = step.selection; // Make selection after 2 seconds
+                careerPathSelections.shortTerm.skillDevelopment = step.selection;
+              }, 2000);
+            }, 1000);
+            break;
+            
+          case 'openOtherGoalsDropdown':
+            setTimeout(() => {
+              const select = document.querySelector('#other-goals-section select');
+              select.size = 6; // Open dropdown
+              setTimeout(() => {
+                select.value = step.selection; // Make selection after 2 seconds
+                careerPathSelections.shortTerm.otherGoals = step.selection;
+              }, 2000);
+            }, 1000);
+            break;
+            
+          // Mid-term dropdown handling
+          case 'openMidTermEducationDropdown':
+            setTimeout(() => {
+              const select = document.querySelector('#mid-term-goals-section .space-y-6 div:nth-child(1) select');
+              select.size = 6; // Open dropdown
+              setTimeout(() => {
+                select.value = step.selection; // Make selection after 2 seconds
+                careerPathSelections.midTerm.education = step.selection;
+              }, 2000);
+            }, 1000);
+            break;
+            
+          case 'openMidTermWorkExperienceDropdown':
+            setTimeout(() => {
+              const select = document.querySelector('#mid-term-goals-section .space-y-6 div:nth-child(2) select');
+              select.size = 6; // Open dropdown
+              setTimeout(() => {
+                select.value = step.selection; // Make selection after 2 seconds
+                careerPathSelections.midTerm.workExperience = step.selection;
+              }, 2000);
+            }, 1000);
+            break;
+            
+          case 'openMidTermNetworkingDropdown':
+            setTimeout(() => {
+              const select = document.querySelector('#mid-term-goals-section .space-y-6 div:nth-child(3) select');
+              select.size = 6; // Open dropdown
+              setTimeout(() => {
+                select.value = step.selection; // Make selection after 2 seconds
+                careerPathSelections.midTerm.networking = step.selection;
+              }, 2000);
+            }, 1000);
+            break;
+            
+          case 'openMidTermSkillDevDropdown':
+            setTimeout(() => {
+              const select = document.querySelector('#mid-term-goals-section .space-y-6 div:nth-child(4) select');
+              select.size = 6; // Open dropdown
+              setTimeout(() => {
+                select.value = step.selection; // Make selection after 2 seconds
+                careerPathSelections.midTerm.skillDevelopment = step.selection;
+              }, 2000);
+            }, 1000);
+            break;
+            
+          case 'openMidTermOtherGoalsDropdown':
+            setTimeout(() => {
+              const select = document.querySelector('#mid-term-goals-section .space-y-6 div:nth-child(5) select');
+              select.size = 6; // Open dropdown
+              setTimeout(() => {
+                select.value = step.selection; // Make selection after 2 seconds
+                careerPathSelections.midTerm.otherGoals = step.selection;
+              }, 2000);
+            }, 1000);
+            break;
+            
+          // Long-term dropdown handling
+          case 'openLongTermEducationDropdown':
+            setTimeout(() => {
+              const select = document.querySelector('#long-term-goals-section .space-y-6 div:nth-child(1) select');
+              select.size = 6; // Open dropdown
+              setTimeout(() => {
+                select.value = step.selection; // Make selection after 2 seconds
+                careerPathSelections.longTerm.education = step.selection;
+              }, 2000);
+            }, 1000);
+            break;
+            
+          case 'openLongTermWorkExperienceDropdown':
+            setTimeout(() => {
+              const select = document.querySelector('#long-term-goals-section .space-y-6 div:nth-child(2) select');
+              select.size = 6; // Open dropdown
+              setTimeout(() => {
+                select.value = step.selection; // Make selection after 2 seconds
+                careerPathSelections.longTerm.workExperience = step.selection;
+              }, 2000);
+            }, 1000);
+            break;
+            
+          case 'openLongTermNetworkingDropdown':
+            setTimeout(() => {
+              const select = document.querySelector('#long-term-goals-section .space-y-6 div:nth-child(3) select');
+              select.size = 6; // Open dropdown
+              setTimeout(() => {
+                select.value = step.selection; // Make selection after 2 seconds
+                careerPathSelections.longTerm.networking = step.selection;
+              }, 2000);
+            }, 1000);
+            break;
+            
+          case 'openLongTermSkillDevDropdown':
+            setTimeout(() => {
+              const select = document.querySelector('#long-term-goals-section .space-y-6 div:nth-child(4) select');
+              select.size = 6; // Open dropdown
+              setTimeout(() => {
+                select.value = step.selection; // Make selection after 2 seconds
+                careerPathSelections.longTerm.skillDevelopment = step.selection;
+              }, 2000);
+            }, 1000);
+            break;
+            
+          case 'openLongTermOtherGoalsDropdown':
+            setTimeout(() => {
+              const select = document.querySelector('#long-term-goals-section .space-y-6 div:nth-child(5) select');
+              select.size = 6; // Open dropdown
+              setTimeout(() => {
+                select.value = step.selection; // Make selection after 2 seconds
+                careerPathSelections.longTerm.otherGoals = step.selection;
+              }, 2000);
+            }, 1000);
+            break;
+        }
+      }
+      
+      // Function to show a tour step
+      function showTourStep(stepIndex) {
+        // Remove existing tooltips and highlights
+        const existingTooltips = document.querySelectorAll('.tour-tooltip');
+        existingTooltips.forEach(tooltip => tooltip.remove());
+        
+        const existingHighlights = document.querySelectorAll('.tour-highlight');
+        existingHighlights.forEach(highlight => {
+          highlight.classList.remove('tour-highlight', 'pulse');
+        });
+        
+        // Update which sections are visible based on tour progress
+        updateVisibleSections(stepIndex);
+        
+        // Get the step data
+        const step = tourSteps[stepIndex];
+        if (!step) return;
+        
+        // Get the target element
+        const targetElement = document.querySelector(step.element);
+        if (!targetElement) return;
+        
+        // Handle dropdown interactions for this step
+        handleStepAction(step);
+        
+        // Add highlight to target element
+        targetElement.classList.add('tour-highlight');
+        
+        // Add pulse effect with a slight delay to allow the dropdown to open first
+        setTimeout(() => {
+          targetElement.classList.add('pulse');
+        }, 600);
+        
+        // Create tooltip
+        const tooltip = document.createElement('div');
+        tooltip.className = `tour-tooltip tour-fade ${step.position}`;
+        
+        // Position the tooltip
+        const rect = targetElement.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // Special handling for timeline indicators
+        if (step.element.includes('.absolute .text-xs:nth-child')) {
+          // For timeline indicators, position the tooltip below the indicator with arrow pointing up
+          if (step.position === 'bottom') {
+            tooltip.classList.add('bottom');
+            tooltip.style.top = `${rect.bottom + scrollTop + 15}px`; // Position below the indicator
+            tooltip.style.left = `${rect.left}px`; // Center relative to the indicator
+            // Center the tooltip horizontally
+            setTimeout(() => {
+              const tooltipWidth = tooltip.offsetWidth;
+              tooltip.style.left = `${rect.left + (rect.width / 2) - (tooltipWidth / 2)}px`;
+            }, 0);
+          } else {
+            tooltip.classList.add('top');
+            tooltip.style.top = `${rect.top + scrollTop - 120}px`; // Position above the indicator
+            tooltip.style.left = `${rect.left}px`; // Center relative to the indicator
+            // Center the tooltip horizontally
+            setTimeout(() => {
+              const tooltipWidth = tooltip.offsetWidth;
+              tooltip.style.left = `${rect.left + (rect.width / 2) - (tooltipWidth / 2)}px`;
+            }, 0);
+          }
+        }
+        // For dropdown sections, always position the tooltip below and add extra space
+        else if (step.element.includes('-section') || 
+                step.element.includes('.space-y-6 div:nth-child')) {
+          // Calculate the height of the dropdown when open (6 items at ~36px each plus padding)
+          const dropdownHeight = 240; // 6 items * ~36px per item + padding
+          
+          // Get the select element within this container
+          const selectElement = targetElement.querySelector('select');
+          if (selectElement) {
+            // For dropdowns, position below the expanded dropdown with extra space
+            tooltip.style.top = `${rect.bottom + scrollTop + dropdownHeight + 20}px`;  // Extra space for dropdown options
+            tooltip.style.left = `${rect.left}px`;
+            // Center the tooltip under the dropdown
+            setTimeout(() => {
+              const tooltipWidth = tooltip.offsetWidth;
+              tooltip.style.left = `${rect.left + (rect.width / 2) - (tooltipWidth / 2)}px`;
+            }, 0);
+          }
+        } else if (step.position === 'top') {
+          tooltip.classList.add('top');
+          tooltip.style.top = `${rect.top + scrollTop - tooltip.offsetHeight - 20}px`;
+          tooltip.style.left = `${rect.left}px`;
+        } else if (step.position === 'top-right') {
+          tooltip.classList.add('top', 'right');
+          tooltip.style.top = `${rect.top + scrollTop - tooltip.offsetHeight - 20}px`;
+          tooltip.style.left = `${rect.left - 200}px`;
+        } else {
+          // Default: position below the element (bottom)
+          tooltip.style.top = `${rect.bottom + scrollTop + 20}px`;
+          tooltip.style.left = `${rect.left}px`;
+        }
+        
+        // Add tooltip content
+        tooltip.innerHTML = `
+          <h3 class="font-bold mb-1">${step.title}</h3>
+          <p>${step.description}</p>
+        `;
+        
+        // Add tooltip to the DOM
+        document.body.appendChild(tooltip);
+        
+        // Update step counter
+        stepCounter.textContent = stepIndex + 1;
+        
+        // Update button states
+        prevButton.disabled = stepIndex === 0;
+        nextButton.disabled = stepIndex === totalSteps - 1;
+        
+        // Scroll the element into view if needed
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+      }
+      
+      // Initialize the tour
+      closeAllDropdowns(); // Make sure all dropdowns start closed
+      showTourStep(currentStep);
+      
+      // Set up event listeners for controls
+      prevButton.addEventListener('click', () => {
+        if (currentStep > 0) {
+          currentStep--;
+          showTourStep(currentStep);
+        }
+      });
+      
+      nextButton.addEventListener('click', () => {
+        if (currentStep < totalSteps - 1) {
+          currentStep++;
+          showTourStep(currentStep);
+        }
+      });
+      
+      closeButton.addEventListener('click', () => {
+        // Remove all tooltips and highlights
+        const tooltips = document.querySelectorAll('.tour-tooltip');
+        tooltips.forEach(tooltip => tooltip.remove());
+        
+        const highlights = document.querySelectorAll('.tour-highlight');
+        highlights.forEach(highlight => {
+          highlight.classList.remove('tour-highlight', 'pulse');
+        });
+        
+        // Reset all open dropdowns
+        closeAllDropdowns();
+        
+        // Hide tour controls
+        document.querySelector('.tour-controls').style.display = 'none';
+        document.querySelector('.tour-progress').style.display = 'none';
+        
+        // Reset visibility of sections
+        document.getElementById('career-path-container').classList.remove('hidden');
+        document.getElementById('mid-term-goals-section').classList.add('hidden');
+        document.getElementById('long-term-goals-section').classList.add('hidden');
+        document.getElementById('career-plan-summary').classList.add('hidden');
+      });
+      
+      // Handle keyboard navigation
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowRight' || event.key === 'Enter' || event.key === ' ') {
+          // Right arrow, Enter, or Space goes to next step
+          if (currentStep < totalSteps - 1) {
+            currentStep++;
+            showTourStep(currentStep);
+          }
+        } else if (event.key === 'ArrowLeft') {
+          // Left arrow goes to previous step
+          if (currentStep > 0) {
+            currentStep--;
+            showTourStep(currentStep);
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
