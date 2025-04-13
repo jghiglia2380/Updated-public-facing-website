@@ -1,0 +1,118 @@
+import React from 'react';
+
+export default function SupportPage() {
+  return (
+    <div className="bg-gray-50">
+      {/* Hero Section - Purple Background */}
+      <section className="bg-indigo-700 py-16 text-white text-center px-4">
+        <h1 className="text-4xl font-bold mb-4">Need Help? We're Here for You.</h1>
+        <p className="text-lg max-w-2xl mx-auto">
+          Access expert support, guided walkthroughs, and all the resources you need to get 
+          the most out of PFL Academy.
+        </p>
+      </section>
+
+      {/* Support Options Grid */}
+      <section className="py-12 px-6 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Help Center */}
+          <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+            <div className="flex items-start">
+              <div className="mr-4 text-indigo-600">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">Help Center</h3>
+                <p className="text-gray-600 mb-3">Browse articles, how-to guides, and troubleshooting tips.</p>
+                <a href="#" className="text-indigo-600 hover:text-indigo-800 font-medium inline-flex items-center">
+                  Visit Help Center 
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Guided Training */}
+          <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+            <div className="flex items-start">
+              <div className="mr-4 text-indigo-600">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">Guided Training</h3>
+                <p className="text-gray-600 mb-3">Watch walkthrough videos and access interactive training labs.</p>
+                <a href="#" className="text-indigo-600 hover:text-indigo-800 font-medium inline-flex items-center">
+                  Access Training 
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Live Chat */}
+          <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+            <div className="flex items-start">
+              <div className="mr-4 text-indigo-600">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">Live Chat</h3>
+                <p className="text-gray-600 mb-3">Chat with a real person during school hours (8am–5pm CST).</p>
+                <a href="#" className="text-indigo-600 hover:text-indigo-800 font-medium inline-flex items-center">
+                  Start Chat 
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Feedback & Suggestions */}
+          <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+            <div className="flex items-start">
+              <div className="mr-4 text-indigo-600">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">Feedback & Suggestions</h3>
+                <p className="text-gray-600 mb-3">Tell us what you love or how we can improve the platform.</p>
+                <a href="#" className="text-indigo-600 hover:text-indigo-800 font-medium inline-flex items-center">
+                  Submit Feedback 
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Still Need Help Section */}
+      <section className="py-12 px-6 text-center bg-gray-100">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl font-bold text-gray-800 mb-4">Still Need Help?</h2>
+          <p className="text-gray-600 mb-6">
+            If you can't find what you're looking for, our team is ready to assist.
+          </p>
+          <a href="#" className="inline-flex items-center justify-center px-6 py-3 bg-indigo-600 text-white font-medium rounded-md hover:bg-indigo-700 transition duration-150 ease-in-out">
+            Contact Support
+          </a>
+        </div>
+      </section>
+    </div>
+  );
+}
